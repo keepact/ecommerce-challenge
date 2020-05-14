@@ -34,7 +34,7 @@ const DashboardGhost: React.FC = () => {
     setPokemons(currentPokemons => [...currentPokemons, pokemon]);
   }
 
-  const getPokemonByType = useCallback(async () => {
+  const getPokemonByType = useCallback(async (): Promise<void> => {
     const response = await api.get<PokemonType>('type/8');
 
     const pokemonsData = response.data;
