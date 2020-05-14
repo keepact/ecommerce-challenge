@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { Title } from './styles';
+
 const DashboardWater: React.FC = () => {
-  return <h1>Dashboard Water</h1>;
+  return <Title>Dashboard Water</Title>;
 };
 
 export default DashboardWater;
