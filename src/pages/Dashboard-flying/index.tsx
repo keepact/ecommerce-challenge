@@ -16,7 +16,7 @@ interface Pokemon {
 const DashboardFlying: React.FC = () => {
   const [pokemons, setPokemons] = useState<PokemonType | undefined>(undefined);
 
-  async function handleGetRepositories(): Promise<void> {
+  async function getPokemonByType(): Promise<void> {
     const response = await api.get<PokemonType>('type/3');
 
     const pokemonsData = response.data;
@@ -24,7 +24,7 @@ const DashboardFlying: React.FC = () => {
   }
 
   useEffect(() => {
-    handleGetRepositories();
+    getPokemonByType();
   }, []);
 
   return (
