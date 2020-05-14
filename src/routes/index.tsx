@@ -1,15 +1,17 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import DashboardWater from '../pages/Dashboard-water';
-import DashboardDragon from '../pages/Dashboard-dragon';
-import DashboardFire from '../pages/Dashboard-fire';
+import DashboardGround from '../pages/Dashboard-ground';
+import DashboardPoison from '../pages/Dashboard-poison';
+import DashboardGhost from '../pages/Dashboard-ghost';
+import DashboardFlying from '../pages/Dashboard-flying';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/" exact component={DashboardWater} />
-    <Route path="/dragon" component={DashboardDragon} />
-    <Route path="/fire" component={DashboardFire} />
+    <Route path="/" exact component={DashboardGround} />
+    <Route path="/poison" component={DashboardPoison} />
+    <Route path="/ghost" component={DashboardGhost} />
+    <Route path="/flying" component={DashboardFlying} />
   </Switch>
 );
 
