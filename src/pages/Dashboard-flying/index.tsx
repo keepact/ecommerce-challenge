@@ -5,7 +5,8 @@ import { formatPrice } from '../../util';
 
 import api from '../../services/api';
 
-import { PokemonList, SubmitButton } from './styles';
+import { PokemonList, SubmitButton, Container } from './styles';
+import Cart from './Cart';
 
 interface PokemonResponse {
   name: string;
@@ -65,28 +66,31 @@ const DashboardFlying: React.FC = () => {
   }, [getPokemonByType]);
 
   return (
-    <PokemonList>
-      {pokemons.map(pokemon => (
-        <li key={pokemon.data.name}>
-          <img
-            src={
-              pokemon.data.sprites.front_default ??
-              'https://api.adorable.io/avatars/50/abott@adorable.png'
-            }
-            alt={pokemon.data.name}
-          />
-          <strong>{pokemon.data.name}</strong>
-          <span>{pokemon.price}</span>
+    <Container>
+      <PokemonList>
+        {pokemons.map(pokemon => (
+          <li key={pokemon.data.name}>
+            <img
+              src={
+                pokemon.data.sprites.front_default ??
+                'https://api.adorable.io/avatars/50/abott@adorable.png'
+              }
+              alt={pokemon.data.name}
+            />
+            <strong>{pokemon.data.name}</strong>
+            <span>{pokemon.price}</span>
 
-          <SubmitButton>
-            <div>
-              <MdShoppingCart size={16} color="#FFF" />
-            </div>
-            <span>ADICIONAR AO CARRINHO</span>
-          </SubmitButton>
-        </li>
-      ))}
-    </PokemonList>
+            <SubmitButton>
+              <div>
+                <MdShoppingCart size={16} color="#FFF" />
+              </div>
+              <span>ADICIONAR</span>
+            </SubmitButton>
+          </li>
+        ))}
+      </PokemonList>
+      <Cart />
+    </Container>
   );
 };
 

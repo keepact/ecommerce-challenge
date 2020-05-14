@@ -1,8 +1,16 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
+export const Container = styled.div`
+  display: flex;
+  flex: 1;
+  padding: 0 20px;
+  margin-top: 10px;
+`;
+
 export const PokemonList = styled.ul`
   display: grid;
+  width: 70%;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   list-style: none;
