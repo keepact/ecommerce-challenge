@@ -12,10 +12,10 @@ interface Pokemon {
 
 interface PokemonType {
   name: string;
-  pokemon: PokemonInfo[];
+  pokemon: PokemonTypeInfo[];
 }
 
-interface PokemonInfo {
+interface PokemonTypeInfo {
   pokemon: {
     name: string;
     url: string;
@@ -25,7 +25,7 @@ interface PokemonInfo {
 const DashboardFlying: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-  async function getPokemonInfo(url: string): Promise<void> {
+  async function getPokemonDetails(url: string): Promise<void> {
     const formatUrl = url.replace('https://pokeapi.co/api/v2/', '');
 
     const response = await api.get<Pokemon>(formatUrl);
@@ -38,7 +38,7 @@ const DashboardFlying: React.FC = () => {
     const response = await api.get<PokemonType>('type/3');
 
     const pokemonsData = response.data;
-    pokemonsData.pokemon.forEach(pok => getPokemonInfo(pok.pokemon.url));
+    pokemonsData.pokemon.forEach(pok => getPokemonDetails(pok.pokemon.url));
   }, []);
 
   useEffect(() => {
@@ -46,16 +46,20 @@ const DashboardFlying: React.FC = () => {
   }, [getPokemonByType]);
 
   return (
-    <div>
-      <PokemonList>
-        {pokemons.map(pok => (
-          <li key={pok.name}>
-            <img src={pok.sprites.front_default} alt={pok.name} />
-            <span>{pok.name}</span>
-          </li>
-        ))}
-      </PokemonList>
-    </div>
+    <PokemonList>
+      {pokemons.map(pokemon => (
+        <li key={pokemon.name}>
+          <img
+            src={
+              pokemon.sprites.front_default ??
+              'https://api.adorable.io/avatars/50/abott@adorable.png'
+            }
+            alt={pokemon.name}
+          />
+          <span>{pokemon.name}</span>
+        </li>
+      ))}
+    </PokemonList>
   );
 };
 
