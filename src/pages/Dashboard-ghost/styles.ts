@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { darken } from 'polished';
 
 export const PokemonList = styled.ul`
   display: grid;
@@ -26,5 +27,50 @@ export const PokemonList = styled.ul`
       font-weight: bold;
       margin: 5px 0 20px;
     }
+  }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const SubmitButton = styled.button.attrs({
+  type: 'button',
+})`
+  background: #7159c1;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+  &:hover {
+    background: ${darken(0.03, '#7159c1')};
+  }
+  div[class='spinner'] {
+    svg {
+      animation: ${rotate} 2s linear infinite;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.1);
+    svg {
+      margin-right: 5px;
+    }
+  }
+  span {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
   }
 `;

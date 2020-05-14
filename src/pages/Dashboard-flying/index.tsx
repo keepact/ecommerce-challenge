@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { MdShoppingCart } from 'react-icons/md';
+// import { FaSpinner } from 'react-icons/fa';
+
 import api from '../../services/api';
 
-import { PokemonList } from './styles';
+import { PokemonList, SubmitButton } from './styles';
 
 interface PokemonResponse {
   name: string;
@@ -73,6 +76,13 @@ const DashboardFlying: React.FC = () => {
           />
           <strong>{pokemon.data.name}</strong>
           <span>{pokemon.price}</span>
+
+          <SubmitButton>
+            <div>
+              <MdShoppingCart size={16} color="#FFF" />
+            </div>
+            <span>ADICIONAR AO CARRINHO</span>
+          </SubmitButton>
         </li>
       ))}
     </PokemonList>
