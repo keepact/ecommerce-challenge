@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MdShoppingCart } from 'react-icons/md';
+import { formatPrice } from '../../util';
 // import { FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
@@ -15,7 +16,7 @@ interface PokemonResponse {
 
 interface Pokemon {
   data: PokemonResponse;
-  price: number;
+  price: string;
 }
 
 interface PokemonType {
@@ -33,11 +34,11 @@ interface PokemonTypeInfo {
 const DashboardFlying: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-  const priceMath = (): number => {
+  const priceMath = (): string => {
     const min = 12;
     const max = 100;
     const randomPrice = Math.floor(Math.random() * (+max - +min)) + +min;
-    return randomPrice;
+    return formatPrice(randomPrice);
   };
 
   const getPokemonDetails = useCallback(async (url: string): Promise<void> => {
