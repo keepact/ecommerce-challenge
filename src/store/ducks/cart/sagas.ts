@@ -31,10 +31,10 @@ function* addToCart({ name }: AnyAction) {
   }
 }
 
-function* updateAmount({ id, amount }: AnyAction) {
+function* updateAmount({ name, amount }: AnyAction) {
   if (amount <= 0) return;
 
-  yield put(updateAmountSuccess(id, amount));
+  yield put(updateAmountSuccess(name, amount));
 }
 
 export default all([
