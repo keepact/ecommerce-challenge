@@ -45,7 +45,6 @@ function* getPokemonDetails(url: string) {
     price: randomNumberMath(12, 100),
     stock: randomNumberMath(1, 15),
   };
-  console.log(pokemon, 'pokemon');
 
   yield put({
     type: PokemonTypes.GET_SUCCESS,

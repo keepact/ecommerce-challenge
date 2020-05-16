@@ -6,22 +6,18 @@ import { Pokemon } from '../pokemon/types';
 
 import { ApplicationState } from '../../index';
 
-interface PokemonDetails {
-  id: number;
-  name: string;
-  sprites: string;
-  price: number;
-  stock: number;
+interface AddCart {
+  type: CartTypes;
+  payload: Pokemon;
 }
 
-type CartAction = {
+interface UpdateCart {
   type: CartTypes;
   id: number;
   amount: number;
-  payload: PokemonDetails;
-};
+}
 
-function* addToCart({ payload }: CartAction) {
+function* addToCart({ payload }: AddCart) {
   const { id, name, sprites, price, stock } = payload;
   const productExist: Cart = yield select((state: ApplicationState) =>
     state.cart.data.find(p => p.id === id),
@@ -56,7 +52,7 @@ function* addToCart({ payload }: CartAction) {
   }
 }
 
-function* updateAmount({ id, amount }: CartAction) {
+function* updateAmount({ id, amount }: UpdateCart) {
   if (amount <= 0) return;
 
   const { stock }: Pokemon = yield select((state: ApplicationState) =>
