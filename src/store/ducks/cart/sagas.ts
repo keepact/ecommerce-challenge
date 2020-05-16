@@ -33,22 +33,34 @@ function* addToCart({ payload }: CartAction) {
   const amount = currentAmount + 1;
 
   if (productExist) {
-    yield put(updateAmountSuccess(data.id, amount));
+    yield put({
+      type: CartTypes.UPDATE_AMOUNT_SUCCESS,
+      id: data.id,
+      amount,
+    });
   } else {
     const pokemon = {
       id,
       name,
       sprites: sprites.front_default,
       price,
+      amount: 1,
     };
-    yield put(addToCartSuccess(pokemon));
+    yield put({
+      type: CartTypes.ADD_SUCCESS,
+      payload: pokemon,
+    });
   }
 }
 
 function* updateAmount({ id, amount }: CartAction) {
   if (amount <= 0) return;
 
-  yield put(updateAmountSuccess(id, amount));
+  yield put({
+    type: CartTypes.UPDATE_AMOUNT_SUCCESS,
+    id,
+    amount,
+  });
 }
 
 export default all([

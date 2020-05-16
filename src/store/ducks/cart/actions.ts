@@ -15,4 +15,4 @@ export const updateAmountRequest = (id: number, amount: number) =>
 export const updateAmountSuccess = (id: number, amount: number) =>
   action(CartTypes.UPDATE_AMOUNT_SUCCESS, id, amount);
 
-export const resetCart = (pokemon: object) => action(CartTypes.RESET, pokemon);
+export const resetCart = () => action(CartTypes.RESET);

@@ -3,9 +3,9 @@ export const { format: formatPrice } = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 });
 
-export const priceMath = (): string => {
+export const priceMath = (): number => {
   const min = 12;
   const max = 100;
   const randomPrice = Math.floor(Math.random() * (+max - +min)) + +min;
-  return formatPrice(randomPrice);
+  return randomPrice;
 };

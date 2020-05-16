@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
-import { priceMath } from '../../util';
+import { priceMath, formatPrice } from '../../util';
 import { ApplicationState } from '../../store';
-import { addToCartRequest } from '../../store/ducks/cart/actions';
+import { CartTypes } from '../../store/ducks/cart/types';
 
 // import { FaSpinner } from 'react-icons/fa';
 
@@ -23,7 +23,7 @@ interface PokemonDetails {
 
 interface Pokemon {
   data: PokemonDetails;
-  price: string;
+  price: number;
 }
 
 interface PokemonType {
@@ -78,7 +78,10 @@ const DashboardFlying: React.FC = () => {
   }, [getPokemonByType]);
 
   const handleAddProduct = (pokemon: Pokemon): void => {
-    dispatch(addToCartRequest(pokemon));
+    dispatch({
+      type: CartTypes.ADD_REQUEST,
+      payload: pokemon,
+    });
   };
 
   return (
@@ -94,7 +97,7 @@ const DashboardFlying: React.FC = () => {
               alt={pokemon.data.name}
             />
             <strong>{pokemon.data.name}</strong>
-            <span>{pokemon.price}</span>
+            <span>{formatPrice(pokemon.price)}</span>
 
             <SubmitButton onClick={() => handleAddProduct(pokemon)}>
               <div>

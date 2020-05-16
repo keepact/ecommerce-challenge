@@ -15,7 +15,7 @@ export interface Cart {
   sprites: {
     front_default: string;
   };
-  price: string;
+  price: number;
   amount: number;
 }
 

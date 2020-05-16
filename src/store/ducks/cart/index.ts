@@ -10,6 +10,8 @@ const INITIAL_STATE: CartState = {
 
 type CartAction = {
   type: CartTypes;
+  id: number;
+  amount: number;
   payload: Cart;
 };
 
@@ -27,26 +29,21 @@ export const reducer: Reducer<CartState, CartAction> = (
       }
       case CartTypes.ADD_SUCCESS: {
         const { payload } = action;
-        payload.amount += 1;
         draft.data.push(payload);
         break;
       }
       case CartTypes.REMOVE: {
-        const pokemonIndex = draft.data.findIndex(
-          p => p.id === action.payload.id,
-        );
+        const pokemonIndex = draft.data.findIndex(p => p.id === action.id);
         if (pokemonIndex >= 0) {
           draft.data.splice(pokemonIndex, 1);
         }
         break;
       }
       case CartTypes.UPDATE_AMOUNT_SUCCESS: {
-        const pokemonIndex = draft.data.findIndex(
-          p => p.id === action.payload.id,
-        );
+        const pokemonIndex = draft.data.findIndex(p => p.id === action.id);
 
         if (pokemonIndex >= 0) {
-          draft.data[pokemonIndex].amount = Number(action.payload.amount);
+          draft.data[pokemonIndex].amount = Number(action.amount);
         }
         break;
       }
