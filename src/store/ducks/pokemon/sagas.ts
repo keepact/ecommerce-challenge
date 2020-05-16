@@ -37,19 +37,28 @@ interface PokemonAction {
 function* getPokemonDetails(url: string) {
   const formatUrl = url.replace('https://pokeapi.co/api/v2/', '');
 
-  const { data }: PokemonDetails = yield call(api.get, formatUrl);
-  const pokemon: Pokemon = {
-    id: data.id,
-    name: data.name,
-    sprites: data.sprites.front_default,
-    price: randomNumberMath(12, 100),
-    stock: randomNumberMath(1, 15),
-  };
+  try {
+    const { data }: PokemonDetails = yield call(api.get, formatUrl);
+    const pokemon: Pokemon = {
+      id: data.id,
+      name: data.name,
+      sprites: data.sprites.front_default,
+      price: randomNumberMath(12, 100),
+      stock: randomNumberMath(1, 15),
+    };
 
-  yield put({
-    type: PokemonTypes.GET_SUCCESS,
-    payload: pokemon,
-  });
+    yield put({
+      type: PokemonTypes.GET_SUCCESS,
+      payload: pokemon,
+    });
+  } catch (err) {
+    yield put({
+      type: PokemonTypes.GET_ERROR,
+    });
+    toast.error(
+      'Ocorreu um erro ao solicitar os pokemons. Tente novamente em alguns minutos',
+    );
+  }
 }
 
 function* getPokemons({ payload }: PokemonAction) {

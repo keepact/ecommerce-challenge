@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 import { CartTypes, Cart } from './types';
 import { Pokemon } from '../pokemon/types';
-
 import { ApplicationState } from '../../index';
 
 interface AddCart {
