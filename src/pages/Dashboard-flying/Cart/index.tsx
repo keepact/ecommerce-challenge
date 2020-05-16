@@ -78,10 +78,7 @@ const Cart: React.FC = () => {
                   {cart.map(product => (
                     <tr>
                       <td>
-                        <img
-                          src={product.sprites.front_default}
-                          alt={product.name}
-                        />
+                        <img src={product.sprites} alt={product.name} />
                       </td>
                       <td>
                         <strong>{product.name}</strong>
@@ -118,8 +115,7 @@ const Cart: React.FC = () => {
                             dispatch({
                               type: CartTypes.REMOVE,
                               id: product.id,
-                            })
-                          }
+                            })}
                         >
                           <MdDelete size={20} color="#7159c1" />
                         </button>

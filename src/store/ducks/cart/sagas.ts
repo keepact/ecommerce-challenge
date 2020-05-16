@@ -5,26 +5,21 @@ import { ApplicationState } from '../../index';
 interface PokemonDetails {
   id: number;
   name: string;
-  sprites: {
-    front_default: string;
-  };
+  sprites: string;
+  price: number;
 }
 
 type CartAction = {
   type: CartTypes;
   id: number;
   amount: number;
-  payload: {
-    price: number;
-    data: PokemonDetails;
-  };
+  payload: PokemonDetails;
 };
 
 function* addToCart({ payload }: CartAction) {
-  const { data, price } = payload;
-  const { id, name, sprites } = data;
+  const { id, name, sprites, price } = payload;
   const productExist = yield select((state: ApplicationState) =>
-    state.cart.data.find(p => p.id === data.id),
+    state.cart.data.find(p => p.id === id),
   );
 
   const currentAmount = productExist ? productExist.amount : 0;
@@ -33,14 +28,14 @@ function* addToCart({ payload }: CartAction) {
   if (productExist) {
     yield put({
       type: CartTypes.UPDATE_AMOUNT_SUCCESS,
-      id: data.id,
+      id,
       amount,
     });
   } else {
     const pokemon = {
       id,
       name,
-      sprites: sprites.front_default,
+      sprites,
       price,
       amount: 1,
     };

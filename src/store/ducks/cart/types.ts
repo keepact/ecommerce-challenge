@@ -12,9 +12,7 @@ export enum CartTypes {
 export interface Cart {
   id: number;
   name: string;
-  sprites: {
-    front_default: string;
-  };
+  sprites: string;
   price: number;
   amount: number;
 }
