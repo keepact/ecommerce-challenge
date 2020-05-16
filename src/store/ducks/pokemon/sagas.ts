@@ -57,6 +57,9 @@ function* getPokemons({ payload }: PokemonAction) {
       data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
     );
   } catch (err) {
+    yield put({
+      type: PokemonTypes.GET_ERROR,
+    });
     console.log(err);
   }
 }

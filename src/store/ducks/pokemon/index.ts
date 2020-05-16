@@ -24,7 +24,15 @@ export const reducer: Reducer<PokemonState, PokemonAction> = (
         break;
       }
       case PokemonTypes.GET_SUCCESS: {
+        draft.loading = false;
+        draft.error = false;
         draft.data.push(action.payload);
+        break;
+      }
+      case PokemonTypes.GET_ERROR: {
+        draft.loading = false;
+        draft.error = true;
+        draft.data = [];
         break;
       }
       default:
