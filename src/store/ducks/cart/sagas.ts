@@ -1,5 +1,9 @@
 import { select, put, all, takeLatest } from 'redux-saga/effects';
-import { CartTypes } from './types';
+import { toast } from 'react-toastify';
+
+import { CartTypes, Cart } from './types';
+import { Pokemon } from '../pokemon/types';
+
 import { ApplicationState } from '../../index';
 
 interface PokemonDetails {
@@ -7,6 +11,7 @@ interface PokemonDetails {
   name: string;
   sprites: string;
   price: number;
+  stock: number;
 }
 
 type CartAction = {
@@ -17,13 +22,18 @@ type CartAction = {
 };
 
 function* addToCart({ payload }: CartAction) {
-  const { id, name, sprites, price } = payload;
-  const productExist = yield select((state: ApplicationState) =>
+  const { id, name, sprites, price, stock } = payload;
+  const productExist: Cart = yield select((state: ApplicationState) =>
     state.cart.data.find(p => p.id === id),
   );
 
   const currentAmount = productExist ? productExist.amount : 0;
   const amount = currentAmount + 1;
+
+  if (amount > stock) {
+    toast.error('Quantidade solicitada fora de estoque');
+    return;
+  }
 
   if (productExist) {
     yield put({
@@ -48,6 +58,15 @@ function* addToCart({ payload }: CartAction) {
 
 function* updateAmount({ id, amount }: CartAction) {
   if (amount <= 0) return;
+
+  const { stock }: Pokemon = yield select((state: ApplicationState) =>
+    state.pokemon.data.find(p => p.id === id),
+  );
+
+  if (amount > stock) {
+    toast.error('Quantidade solicitada fora de estoque');
+    return;
+  }
 
   yield put({
     type: CartTypes.UPDATE_AMOUNT_SUCCESS,

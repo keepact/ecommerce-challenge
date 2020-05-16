@@ -1,6 +1,8 @@
 import { put, call, all, takeLatest } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
+
 import { PokemonTypes, Pokemon } from './types';
-import { priceMath } from '../../../util';
+import { randomNumberMath } from '../../../util';
 import api from '../../../services/api';
 
 interface PokemonDetails {
@@ -40,8 +42,10 @@ function* getPokemonDetails(url: string) {
     id: data.id,
     name: data.name,
     sprites: data.sprites.front_default,
-    price: priceMath(),
+    price: randomNumberMath(12, 100),
+    stock: randomNumberMath(1, 15),
   };
+  console.log(pokemon, 'pokemon');
 
   yield put({
     type: PokemonTypes.GET_SUCCESS,
@@ -60,7 +64,9 @@ function* getPokemons({ payload }: PokemonAction) {
     yield put({
       type: PokemonTypes.GET_ERROR,
     });
-    console.log(err);
+    toast.error(
+      'Ocorreu um erro ao solicitar os pokemons. Tente novamente em alguns minutos',
+    );
   }
 }
 

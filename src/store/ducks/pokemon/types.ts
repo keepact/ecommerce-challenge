@@ -11,6 +11,7 @@ export interface Pokemon {
   name: string;
   sprites: string;
   price: number;
+  stock: number;
 }
 
 // State Type
