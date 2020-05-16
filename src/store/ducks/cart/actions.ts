@@ -1,18 +1,18 @@
 import { action } from 'typesafe-actions';
 import { CartTypes } from './types';
 
-export const addToCartRequest = (name: string) =>
-  action(CartTypes.ADD_REQUEST, name);
+export const addToCartRequest = (pokemon: object) =>
+  action(CartTypes.ADD_REQUEST, pokemon);
 
-export const addToCartSuccess = (product: object) =>
-  action(CartTypes.ADD_SUCCESS, product);
+export const addToCartSuccess = (pokemon: object) =>
+  action(CartTypes.ADD_SUCCESS, pokemon);
 
-export const removeFromCart = (name: string) => action(CartTypes.REMOVE, name);
+export const removeFromCart = (id: number) => action(CartTypes.REMOVE, id);
 
-export const updateAmountRequest = (name: string, amount: number) =>
-  action(CartTypes.UPDATE_AMOUNT_REQUEST, name, amount);
+export const updateAmountRequest = (id: number, amount: number) =>
+  action(CartTypes.UPDATE_AMOUNT_REQUEST, id, amount);
 
-export const updateAmountSuccess = (name: string, amount: number) =>
-  action(CartTypes.UPDATE_AMOUNT_SUCCESS, name, amount);
+export const updateAmountSuccess = (id: number, amount: number) =>
+  action(CartTypes.UPDATE_AMOUNT_SUCCESS, id, amount);
 
-export const resetCart = (product: object) => action(CartTypes.RESET, product);
+export const resetCart = (pokemon: object) => action(CartTypes.RESET, pokemon);

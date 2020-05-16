@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { MdShoppingCart } from 'react-icons/md';
-import { formatPrice } from '../../util';
+import { priceMath } from '../../util';
+import { ApplicationState } from '../../store';
+import { addToCartRequest } from '../../store/ducks/cart/actions';
+
 // import { FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
@@ -8,7 +13,8 @@ import api from '../../services/api';
 import { PokemonList, SubmitButton, Container } from './styles';
 import Cart from './Cart';
 
-interface PokemonResponse {
+interface PokemonDetails {
+  id: number;
   name: string;
   sprites: {
     front_default: string;
@@ -16,7 +22,7 @@ interface PokemonResponse {
 }
 
 interface Pokemon {
-  data: PokemonResponse;
+  data: PokemonDetails;
   price: string;
 }
 
@@ -32,26 +38,32 @@ interface PokemonTypeInfo {
   };
 }
 
+interface SumAmount {
+  [key: string]: number;
+}
+
 const DashboardFlying: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const dispatch = useDispatch();
 
-  const priceMath = (): string => {
-    const min = 12;
-    const max = 100;
-    const randomPrice = Math.floor(Math.random() * (+max - +min)) + +min;
-    return formatPrice(randomPrice);
-  };
+  const amount = useSelector((state: ApplicationState) =>
+    state.cart.data.reduce((sumAmount: SumAmount, pokemon) => {
+      sumAmount[pokemon.id] = pokemon.amount;
+
+      return sumAmount;
+    }, {}),
+  );
 
   const getPokemonDetails = useCallback(async (url: string): Promise<void> => {
     const formatUrl = url.replace('https://pokeapi.co/api/v2/', '');
 
-    const response = await api.get<PokemonResponse>(formatUrl);
+    const response = await api.get<PokemonDetails>(formatUrl);
     const pokemon = {
       data: response.data,
       price: priceMath(),
     };
 
-    setPokemons(currentPokemons => [...currentPokemons, pokemon]);
+    setPokemons(currentPokemons => [...new Set(currentPokemons), pokemon]);
   }, []);
 
   const getPokemonByType = useCallback(async (): Promise<void> => {
@@ -65,11 +77,15 @@ const DashboardFlying: React.FC = () => {
     getPokemonByType();
   }, [getPokemonByType]);
 
+  const handleAddProduct = (pokemon: Pokemon): void => {
+    dispatch(addToCartRequest(pokemon));
+  };
+
   return (
     <Container>
       <PokemonList>
         {pokemons.map(pokemon => (
-          <li key={pokemon.data.name}>
+          <li key={pokemon.data.id}>
             <img
               src={
                 pokemon.data.sprites.front_default ??
@@ -80,9 +96,10 @@ const DashboardFlying: React.FC = () => {
             <strong>{pokemon.data.name}</strong>
             <span>{pokemon.price}</span>
 
-            <SubmitButton>
+            <SubmitButton onClick={() => handleAddProduct(pokemon)}>
               <div>
                 <MdShoppingCart size={16} color="#FFF" />
+                {amount[pokemon.data.id] || 0}
               </div>
               <span>ADICIONAR</span>
             </SubmitButton>

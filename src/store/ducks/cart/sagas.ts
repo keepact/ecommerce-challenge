@@ -1,40 +1,54 @@
 import { select, put, all, takeLatest } from 'redux-saga/effects';
-import { AnyAction } from 'redux';
-
 import { CartTypes } from './types';
 import { ApplicationState } from '../../index';
 
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 
-function* addToCart({ name }: AnyAction) {
+interface PokemonDetails {
+  id: number;
+  name: string;
+  sprites: {
+    front_default: string;
+  };
+}
+
+type CartAction = {
+  type: CartTypes;
+  id: number;
+  amount: number;
+  payload: {
+    price: number;
+    data: PokemonDetails;
+  };
+};
+
+function* addToCart({ payload }: CartAction) {
+  const { data, price } = payload;
+  const { id, name, sprites } = data;
   const productExist = yield select((state: ApplicationState) =>
-    state.cart.data.find(p => p.name === name),
+    state.cart.data.find(p => p.id === data.id),
   );
 
   const currentAmount = productExist ? productExist.amount : 0;
-
   const amount = currentAmount + 1;
 
   if (productExist) {
-    yield put(updateAmountSuccess(name, amount));
+    yield put(updateAmountSuccess(data.id, amount));
   } else {
-    const currentCart = yield select(
-      (state: ApplicationState) => state.cart.data,
-    );
-
-    const data = {
-      ...currentCart,
-      amount: 1,
+    const pokemon = {
+      id,
+      name,
+      sprites: sprites.front_default,
+      price,
     };
-
-    yield put(addToCartSuccess(data));
+    yield put(addToCartSuccess(pokemon));
   }
 }
 
-function* updateAmount({ name, amount }: AnyAction) {
+function* updateAmount({ id, amount }: CartAction) {
   if (amount <= 0) return;
 
-  yield put(updateAmountSuccess(name, amount));
+  yield put(updateAmountSuccess(id, amount));
 }
 
 export default all([

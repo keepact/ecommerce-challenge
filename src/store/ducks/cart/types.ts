@@ -10,11 +10,13 @@ export enum CartTypes {
 
 // Data Types
 export interface Cart {
+  id: number;
   name: string;
-  sprites: string;
+  sprites: {
+    front_default: string;
+  };
   price: string;
   amount: number;
-  subtoal: number;
 }
 
 // State Type
