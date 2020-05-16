@@ -2,8 +2,6 @@ import { select, put, all, takeLatest } from 'redux-saga/effects';
 import { CartTypes } from './types';
 import { ApplicationState } from '../../index';
 
-import { addToCartSuccess, updateAmountSuccess } from './actions';
-
 interface PokemonDetails {
   id: number;
   name: string;
