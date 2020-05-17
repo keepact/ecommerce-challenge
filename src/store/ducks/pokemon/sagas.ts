@@ -1,7 +1,8 @@
-import { put, call, all, takeLatest } from 'redux-saga/effects';
+import { select, put, call, all, takeLatest } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import { PokemonTypes, Pokemon } from './types';
+import { ApplicationState } from '../..';
 import { randomNumberMath } from '../../../util';
 import api from '../../../services/api';
 
@@ -48,7 +49,7 @@ function* getPokemonDetails(url: string) {
     };
 
     yield put({
-      type: PokemonTypes.GET_SUCCESS,
+      type: PokemonTypes.GET_DETAILS_SUCCESS,
       payload: pokemon,
     });
   } catch (err) {
@@ -68,6 +69,15 @@ function* getPokemons({ payload }: PokemonAction) {
     yield all(
       data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
     );
+
+    const pokemonTypeArraySize = data.pokemon.length;
+    const pokemonDetailsArraySize = yield select(
+      (state: ApplicationState) => state.pokemon.data.length,
+    );
+
+    if (pokemonTypeArraySize === pokemonDetailsArraySize) {
+      yield put({ type: PokemonTypes.GET_SUCCESS });
+    }
   } catch (err) {
     yield put({
       type: PokemonTypes.GET_ERROR,

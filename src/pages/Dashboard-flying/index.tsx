@@ -12,6 +12,9 @@ import { AppContext } from '../../context';
 import { PokemonList, SubmitButton, Container } from './styles';
 import Cart from './Cart';
 
+import loadingAnimation from '../../assets/animations/pokemon-loading.json';
+import Animation from '../../components/Animation';
+
 interface SumAmount {
   [key: string]: number;
 }
@@ -28,7 +31,7 @@ const DashboardFlying: React.FC = () => {
     }, {}),
   );
 
-  const { data: pokemons } = useSelector(
+  const { data: pokemons, loading } = useSelector(
     (state: ApplicationState) => state.pokemon,
   );
 
@@ -58,32 +61,38 @@ const DashboardFlying: React.FC = () => {
   };
 
   return (
-    <Container>
-      <PokemonList>
-        {filter.map(pokemon => (
-          <li key={pokemon.id}>
-            <img
-              src={
-                pokemon.sprites ??
-                'https://api.adorable.io/avatars/50/abott@adorable.png'
-              }
-              alt={pokemon.name}
-            />
-            <strong>{pokemon.name}</strong>
-            <span>{formatPrice(pokemon.price)}</span>
+    <>
+      {loading ? (
+        <Animation animation={loadingAnimation} autoplay loop />
+      ) : (
+        <Container>
+          <PokemonList>
+            {filter.map(pokemon => (
+              <li key={pokemon.id}>
+                <img
+                  src={
+                    pokemon.sprites ??
+                    'https://api.adorable.io/avatars/50/abott@adorable.png'
+                  }
+                  alt={pokemon.name}
+                />
+                <strong>{pokemon.name}</strong>
+                <span>{formatPrice(pokemon.price)}</span>
 
-            <SubmitButton onClick={() => handleAddProduct(pokemon)}>
-              <div>
-                <MdShoppingCart size={16} color="#FFF" />
-                {amount[pokemon.id] || 0}
-              </div>
-              <span>ADICIONAR</span>
-            </SubmitButton>
-          </li>
-        ))}
-      </PokemonList>
-      <Cart />
-    </Container>
+                <SubmitButton onClick={() => handleAddProduct(pokemon)}>
+                  <div>
+                    <MdShoppingCart size={16} color="#FFF" />
+                    {amount[pokemon.id] || 0}
+                  </div>
+                  <span>ADICIONAR</span>
+                </SubmitButton>
+              </li>
+            ))}
+          </PokemonList>
+          <Cart />
+        </Container>
+      )}
+    </>
   );
 };
 

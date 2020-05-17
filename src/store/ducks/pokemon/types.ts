@@ -2,6 +2,7 @@
 export enum PokemonTypes {
   GET_REQUEST = '@pokemon/GET_REQUEST',
   GET_SUCCESS = '@pokemon/GET_SUCCESS',
+  GET_DETAILS_SUCCESS = '@pokemon/GET_DETAILS_SUCCESS',
   GET_ERROR = '@pokemon/GET_ERROR',
 }
 
