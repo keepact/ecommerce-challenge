@@ -18,6 +18,9 @@ export interface Pokemon {
 // State Type
 export interface PokemonState {
   readonly data: Pokemon[];
+  readonly pageNumbers: number[];
+  readonly page: number;
+  readonly perPage: number;
   readonly loading: boolean;
   readonly error: boolean;
 }

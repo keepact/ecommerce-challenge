@@ -22,7 +22,7 @@ import Modal from '../Modal';
 
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
-  const [discount, setDiscount] = useState<string>('');
+  const [bonus, setBonus] = useState<string>('');
   const dispatch = useDispatch();
 
   const total = useSelector((state: ApplicationState) =>
@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
   function handleFinhesed() {
     const format = +total.replace('R$', '').replace(',00', '');
 
-    setDiscount(calculateBonus(format));
+    setBonus(calculateBonus(format));
     setFinished(true);
   }
 
@@ -77,7 +77,7 @@ const Cart: React.FC = () => {
         <Modal
           animation={successAnimation}
           title="OBRIGADO"
-          text={`Você ganhou de volta ${discount}`}
+          text={`Você ganhou de volta ${bonus} para gastas na loja`}
           buttonLabel="Ok"
           onClick={handleReset}
         />
