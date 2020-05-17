@@ -8,7 +8,10 @@ import {
 
 import { formatPrice } from '../../../util';
 import { ApplicationState } from '../../../store';
-import { Cart as CartType, CartTypes } from '../../../store/ducks/cart/types';
+import {
+  Cart as CartInterface,
+  CartTypes,
+} from '../../../store/ducks/cart/types';
 import { Container, ProductTable, Total } from './styles';
 
 import emptyAnimation from '../../../assets/animations/empty-cart.json';
@@ -34,7 +37,7 @@ const Cart: React.FC = () => {
   );
   const cartSize = useMemo(() => cart.length, [cart]);
 
-  function increment(product: CartType) {
+  function increment(product: CartInterface) {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
@@ -42,7 +45,7 @@ const Cart: React.FC = () => {
     });
   }
 
-  function decrement(product: CartType) {
+  function decrement(product: CartInterface) {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
