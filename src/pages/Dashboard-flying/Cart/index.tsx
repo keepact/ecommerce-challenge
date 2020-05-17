@@ -11,6 +11,9 @@ import { ApplicationState } from '../../../store';
 import { Cart as CartType, CartTypes } from '../../../store/ducks/cart/types';
 import { Container, ProductTable, Total } from './styles';
 
+import emptyAnimation from '../../../assets/animations/empty-cart.json';
+import Animation from '../../../components/Animation';
+
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -115,7 +118,8 @@ const Cart: React.FC = () => {
                             dispatch({
                               type: CartTypes.REMOVE,
                               id: product.id,
-                            })}
+                            })
+                          }
                         >
                           <MdDelete size={20} color="#7159c1" />
                         </button>
@@ -138,6 +142,7 @@ const Cart: React.FC = () => {
             </>
           ) : (
             <div>
+              <Animation animation={emptyAnimation} autoplay loop />
               <h2>Seu carrinho está vazio.</h2>
             </div>
           )}
