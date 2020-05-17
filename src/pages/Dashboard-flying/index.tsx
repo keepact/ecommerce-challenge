@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, FormEvent } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
@@ -6,6 +6,7 @@ import { formatPrice } from '../../util';
 import { ApplicationState } from '../../store';
 import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';
+import { AppContext } from '../../context';
 
 // import { FaSpinner } from 'react-icons/fa';
 import { PokemonList, SubmitButton, Container } from './styles';
@@ -16,7 +17,7 @@ interface SumAmount {
 }
 
 const DashboardFlying: React.FC = () => {
-  const [filter, setFilter] = useState<Pokemon[]>([]);
+  const { filter, setContext } = useContext(AppContext);
   const dispatch = useDispatch();
 
   const amount = useSelector((state: ApplicationState) =>
@@ -31,9 +32,12 @@ const DashboardFlying: React.FC = () => {
     (state: ApplicationState) => state.pokemon,
   );
 
-  const loadPokemons = useCallback((data: Pokemon[]) => {
-    setFilter(data);
-  }, []);
+  const loadPokemons = useCallback(
+    (data: Pokemon[]) => {
+      setContext({ filter: data, setContext: () => data });
+    },
+    [setContext],
+  );
 
   useEffect(() => {
     dispatch({
@@ -53,26 +57,8 @@ const DashboardFlying: React.FC = () => {
     });
   };
 
-  const handleSearch = (event: FormEvent<HTMLInputElement>) => {
-    let newList: Pokemon[];
-
-    if (event.currentTarget.value !== '') {
-      newList = pokemons.filter(item => {
-        const data = item.name.toLowerCase();
-        const inputValue = event.currentTarget.value.toLowerCase();
-        return data.includes(inputValue);
-      });
-    } else {
-      newList = pokemons;
-    }
-    setFilter(newList);
-  };
-
   return (
     <Container>
-      <div>
-        <input type="text" onChange={handleSearch} />
-      </div>
       <PokemonList>
         {filter.map(pokemon => (
           <li key={pokemon.id}>
