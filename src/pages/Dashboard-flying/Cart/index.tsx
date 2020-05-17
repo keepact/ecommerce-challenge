@@ -6,7 +6,7 @@ import {
   MdDelete,
 } from 'react-icons/md';
 
-import { formatPrice } from '../../../util';
+import { formatPrice, calculateBonus } from '../../../util';
 import { ApplicationState } from '../../../store';
 import {
   Cart as CartInterface,
@@ -15,10 +15,14 @@ import {
 import { Container, ProductTable, Total } from './styles';
 
 import emptyAnimation from '../../../assets/animations/empty-cart.json';
+import successAnimation from '../../../assets/animations/sending-success.json';
 import Animation from '../../../components/Animation';
+
+import Modal from '../Modal';
 
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
+  const [discount, setDiscount] = useState<string>('');
   const dispatch = useDispatch();
 
   const total = useSelector((state: ApplicationState) =>
@@ -54,7 +58,14 @@ const Cart: React.FC = () => {
   }
 
   function handleFinhesed() {
+    const format = +total.replace('R$', '').replace(',00', '');
+
+    setDiscount(calculateBonus(format));
     setFinished(true);
+  }
+
+  function handleReset() {
+    setFinished(false);
     dispatch({
       type: CartTypes.RESET,
     });
@@ -62,94 +73,85 @@ const Cart: React.FC = () => {
 
   return (
     <Container>
-      {finished ? (
-        <div>
-          <h2>Sua compra foi processada, obrigado pela confiança!</h2>
-        </div>
-      ) : (
+      {finished && (
+        <Modal
+          animation={successAnimation}
+          title="OBRIGADO"
+          text={`Você ganhou de volta ${discount}`}
+          buttonLabel="Ok"
+          onClick={handleReset}
+        />
+      )}
+      {cartSize > 0 ? (
         <>
-          {cartSize > 0 ? (
-            <>
-              <ProductTable>
-                <thead>
-                  <tr>
-                    <th className="display">none</th>
-                    <th>PRODUTO</th>
-                    <th>QTD</th>
-                    <th>SUBTOTAL</th>
-                    <th className="display">none</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cart.map(product => (
-                    <tr>
-                      <td>
-                        <img src={product.sprites} alt={product.name} />
-                      </td>
-                      <td>
-                        <strong>{product.name}</strong>
-                        <span>{formatPrice(product.price)}</span>
-                      </td>
-                      <td>
-                        <div>
-                          <button
-                            type="button"
-                            onClick={() => decrement(product)}
-                          >
-                            <MdRemoveCircleOutline size={20} color="#7159c1" />
-                          </button>
-                          <input
-                            type="number"
-                            readOnly
-                            value={product.amount}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => increment(product)}
-                          >
-                            <MdAddCircleOutline size={20} color="#7159c1" />
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <strong>{product.subtotal}</strong>
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            dispatch({
-                              type: CartTypes.REMOVE,
-                              id: product.id,
-                            })
-                          }
-                        >
-                          <MdDelete size={20} color="#7159c1" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </ProductTable>
+          <ProductTable>
+            <thead>
+              <tr>
+                <th className="display">none</th>
+                <th>PRODUTO</th>
+                <th>QTD</th>
+                <th>SUBTOTAL</th>
+                <th className="display">none</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map(product => (
+                <tr>
+                  <td>
+                    <img src={product.sprites} alt={product.name} />
+                  </td>
+                  <td>
+                    <strong>{product.name}</strong>
+                    <span>{formatPrice(product.price)}</span>
+                  </td>
+                  <td>
+                    <div>
+                      <button type="button" onClick={() => decrement(product)}>
+                        <MdRemoveCircleOutline size={20} color="#7159c1" />
+                      </button>
+                      <input type="number" readOnly value={product.amount} />
+                      <button type="button" onClick={() => increment(product)}>
+                        <MdAddCircleOutline size={20} color="#7159c1" />
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <strong>{product.subtotal}</strong>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        dispatch({
+                          type: CartTypes.REMOVE,
+                          id: product.id,
+                        })
+                      }
+                    >
+                      <MdDelete size={20} color="#7159c1" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </ProductTable>
 
-              <footer>
-                <button type="button" onClick={() => handleFinhesed()}>
-                  Finalizar pedido
-                </button>
+          <footer>
+            <button type="button" onClick={() => handleFinhesed()}>
+              Finalizar pedido
+            </button>
 
-                <Total>
-                  <span>TOTAL</span>
-                  <strong>{total}</strong>
-                </Total>
-              </footer>
-            </>
-          ) : (
-            <div>
-              <Animation animation={emptyAnimation} autoplay loop />
-              <h2>Seu carrinho está vazio.</h2>
-            </div>
-          )}
+            <Total>
+              <span>TOTAL</span>
+              <strong>{total}</strong>
+            </Total>
+          </footer>
         </>
+      ) : (
+        <div>
+          <Animation animation={emptyAnimation} autoplay loop />
+          <h2>Seu carrinho está vazio.</h2>
+        </div>
       )}
     </Container>
   );

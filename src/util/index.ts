@@ -4,6 +4,9 @@ export const { format: formatPrice } = new Intl.NumberFormat('pt-BR', {
 });
 
 export const randomNumberMath = (min: number, max: number): number => {
-  const randomPrice = Math.floor(Math.random() * (+max - +min)) + +min;
-  return randomPrice;
+  const randomNumber = Math.floor(Math.random() * (+max - +min)) + +min;
+  return randomNumber;
 };
+
+export const calculateBonus = (total: number): string =>
+  formatPrice(total / 10);

@@ -9,6 +9,7 @@ interface Props {
   height?: number;
   loop: boolean;
   autoplay: boolean;
+  containerHeight?: string;
 }
 
 // animation, width, height, loop, autoplay
@@ -18,6 +19,7 @@ const LottieControl: React.FC<Props> = ({
   height = 300,
   loop = false,
   autoplay = true,
+  containerHeight,
 }: Props): JSX.Element => {
   const defaultOptions = {
     loop,
@@ -29,7 +31,7 @@ const LottieControl: React.FC<Props> = ({
   };
 
   return (
-    <AnimationContainer>
+    <AnimationContainer containerHeight={containerHeight}>
       <Lottie
         options={defaultOptions}
         isClickToPauseDisabled
