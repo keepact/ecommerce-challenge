@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
@@ -16,6 +16,7 @@ interface SumAmount {
 }
 
 const DashboardFlying: React.FC = () => {
+  const [filter, setFilter] = useState<Pokemon[]>([]);
   const dispatch = useDispatch();
 
   const amount = useSelector((state: ApplicationState) =>
@@ -30,12 +31,20 @@ const DashboardFlying: React.FC = () => {
     (state: ApplicationState) => state.pokemon,
   );
 
+  const loadPokemons = useCallback((data: Pokemon[]) => {
+    setFilter(data);
+  }, []);
+
   useEffect(() => {
     dispatch({
       type: PokemonTypes.GET_REQUEST,
       payload: 'type/3',
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    loadPokemons(pokemons);
+  }, [loadPokemons, pokemons]);
 
   const handleAddProduct = (pokemon: Pokemon): void => {
     dispatch({
@@ -44,10 +53,28 @@ const DashboardFlying: React.FC = () => {
     });
   };
 
+  const handleSearch = (event: FormEvent<HTMLInputElement>) => {
+    let newList: Pokemon[];
+
+    if (event.currentTarget.value !== '') {
+      newList = pokemons.filter(item => {
+        const data = item.name.toLowerCase();
+        const inputValue = event.currentTarget.value.toLowerCase();
+        return data.includes(inputValue);
+      });
+    } else {
+      newList = pokemons;
+    }
+    setFilter(newList);
+  };
+
   return (
     <Container>
+      <div>
+        <input type="text" onChange={handleSearch} />
+      </div>
       <PokemonList>
-        {pokemons.map(pokemon => (
+        {filter.map(pokemon => (
           <li key={pokemon.id}>
             <img
               src={
