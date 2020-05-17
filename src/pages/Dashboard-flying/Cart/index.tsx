@@ -70,11 +70,11 @@ const Cart: React.FC = () => {
               <ProductTable>
                 <thead>
                   <tr>
-                    <th />
+                    <th className="display">none</th>
                     <th>PRODUTO</th>
                     <th>QTD</th>
                     <th>SUBTOTAL</th>
-                    <th />
+                    <th className="display">none</th>
                   </tr>
                 </thead>
                 <tbody>

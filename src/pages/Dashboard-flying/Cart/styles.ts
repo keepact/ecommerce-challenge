@@ -28,6 +28,11 @@ export const Container = styled.div`
 
 export const ProductTable = styled.table`
   width: 100%;
+
+  .display {
+    opacity: 0;
+  }
+
   thead th {
     color: #999;
     text-align: left;
@@ -55,7 +60,7 @@ export const ProductTable = styled.table`
     align-items: center;
     input {
       border: 1px solid #ddd;
-      border=radius: 4px;
+      border-radius: 4px;
       color: #666;
       padding: 6px;
       width: 50px;
