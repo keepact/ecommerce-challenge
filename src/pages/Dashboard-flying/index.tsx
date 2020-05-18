@@ -62,12 +62,12 @@ const DashboardFlying: React.FC = () => {
   };
 
   const handleChangePage = (pageNumber: number): void => {
+    dispatch({ type: PokemonTypes.CHANGE_PAGE, page: pageNumber });
     const arrayPaginate = setPage({
-      page: page + 1,
+      page,
       perPage,
       array: pokemons,
     });
-    dispatch({ type: PokemonTypes.CHANGE_PAGE, page: pageNumber });
     setContext({ filter: arrayPaginate, setContext: () => arrayPaginate });
   };
 
@@ -76,40 +76,43 @@ const DashboardFlying: React.FC = () => {
       {loading ? (
         <Animation animation={loadingAnimation} autoplay loop />
       ) : (
-        <Container>
-          <PokemonList>
-            {filter.map(pokemon => (
-              <div key={pokemon.id}>
-                <img
-                  src={
-                    pokemon.sprites ??
-                    'https://api.adorable.io/avatars/50/abott@adorable.png'
-                  }
-                  alt={pokemon.name}
-                />
-                <strong>{pokemon.name}</strong>
-                <span>{formatPrice(pokemon.price)}</span>
+        <>
+          <Container>
+            <PokemonList>
+              {filter.map(pokemon => (
+                <div key={pokemon.id}>
+                  <img
+                    src={
+                      pokemon.sprites ??
+                      'https://api.adorable.io/avatars/50/abott@adorable.png'
+                    }
+                    alt={pokemon.name}
+                  />
+                  <strong>{pokemon.name}</strong>
+                  <span>{formatPrice(pokemon.price)}</span>
 
-                <SubmitButton onClick={() => handleAddProduct(pokemon)}>
-                  <div>
-                    <MdShoppingCart size={16} color="#FFF" />
-                    {amount[pokemon.id] || 0}
-                  </div>
-                  <span>ADICIONAR</span>
-                </SubmitButton>
-              </div>
-            ))}
-          </PokemonList>
-          <Cart />
-        </Container>
+                  <SubmitButton onClick={() => handleAddProduct(pokemon)}>
+                    <div>
+                      <MdShoppingCart size={16} color="#FFF" />
+                      {amount[pokemon.id] || 0}
+                    </div>
+                    <span>ADICIONAR</span>
+                  </SubmitButton>
+                </div>
+              ))}
+            </PokemonList>
+            <Cart />
+          </Container>
+          <PageActions
+            disableNext={lastPage === page}
+            disableBack={page < 2}
+            pageLabel={page}
+            refresh={handleChangePage}
+            currentPage={page}
+            lastPage={lastPage}
+          />
+        </>
       )}
-      <PageActions
-        disableNext={lastPage === page}
-        disableBack={page < 2}
-        pageLabel={page}
-        refresh={handleChangePage}
-        currentPage={page}
-      />
     </Screen>
   );
 };

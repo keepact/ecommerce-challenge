@@ -11,7 +11,7 @@ export const PageActions = styled.div`
     font-weight: bold;
     font-size: 18px;
   }
-  button {
+  .next-and-prev {
     background: #7159c1;
     color: #fff;
     font-size: 16px;
@@ -31,5 +31,10 @@ export const PageActions = styled.div`
     &:hover {
       opacity: 0.7;
     }
+  }
+
+  .default {
+    border: none;
+    background: none;
   }
 `;
