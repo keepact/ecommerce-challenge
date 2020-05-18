@@ -65,17 +65,16 @@ function* getPokemonDetails(url: string) {
 function* getPokemons({ payload }: PokemonAction) {
   try {
     const { data }: PokemonType = yield call(api.get, payload);
-
-    yield all(
-      data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
+    const hasEmptyArrayOfPokemons: number = yield select(
+      (state: ApplicationState) => state.pokemon.data.length === 0,
     );
 
-    const pokemonTypeArraySize = data.pokemon.length;
-    const pokemonDetailsArraySize = yield select(
-      (state: ApplicationState) => state.pokemon.data.length,
-    );
-
-    if (pokemonTypeArraySize === pokemonDetailsArraySize) {
+    if (hasEmptyArrayOfPokemons) {
+      yield all(
+        data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
+      );
+      yield put({ type: PokemonTypes.GET_SUCCESS });
+    } else {
       yield put({ type: PokemonTypes.GET_SUCCESS });
     }
   } catch (err) {
