@@ -7,6 +7,7 @@ import { ApplicationState } from '../../store';
 
 import { Container, Cart, TextInput } from './styles';
 import { AppContext } from '../../context';
+import { setPage } from '../../util';
 
 const Header: React.FC = () => {
   const { setContext } = useContext(AppContext);
@@ -14,7 +15,9 @@ const Header: React.FC = () => {
   const cartSize = useSelector(
     (state: ApplicationState) => state.cart.data.length,
   );
-  const pokemons = useSelector((state: ApplicationState) => state.pokemon.data);
+  const { data: pokemons, page, perPage } = useSelector(
+    (state: ApplicationState) => state.pokemon,
+  );
 
   const handleSearch = (event: FormEvent<HTMLInputElement>) => {
     let newList: Pokemon[];
@@ -26,7 +29,7 @@ const Header: React.FC = () => {
         return data.includes(inputValue);
       });
     } else {
-      newList = pokemons;
+      newList = setPage({ page, perPage, array: pokemons });
     }
     setContext({ filter: newList, setContext: () => newList });
   };

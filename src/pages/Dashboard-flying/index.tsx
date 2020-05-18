@@ -42,6 +42,7 @@ const DashboardFlying: React.FC = () => {
     },
     [setContext, page, perPage],
   );
+
   useEffect(() => {
     dispatch({
       type: PokemonTypes.GET_REQUEST,
