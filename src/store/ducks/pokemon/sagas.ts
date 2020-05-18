@@ -65,7 +65,7 @@ function* getPokemonDetails(url: string) {
 function* getPokemons({ payload }: PokemonAction) {
   try {
     const { data }: PokemonType = yield call(api.get, payload);
-    const hasEmptyArrayOfPokemons: number = yield select(
+    const hasEmptyArrayOfPokemons: boolean = yield select(
       (state: ApplicationState) => state.pokemon.data.length === 0,
     );
 
