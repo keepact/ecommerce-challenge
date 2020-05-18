@@ -8,7 +8,7 @@ import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';
 import { AppContext } from '../../context';
 
-import { PokemonList, SubmitButton, Container } from './styles';
+import { Screen, Container, PokemonList, SubmitButton } from './styles';
 import Cart from './Cart';
 
 import loadingAnimation from '../../assets/animations/pokemon-loading.json';
@@ -71,14 +71,14 @@ const DashboardFlying: React.FC = () => {
   };
 
   return (
-    <>
+    <Screen>
       {loading ? (
         <Animation animation={loadingAnimation} autoplay loop />
       ) : (
         <Container>
           <PokemonList>
             {filter.map(pokemon => (
-              <li key={pokemon.id}>
+              <div key={pokemon.id}>
                 <img
                   src={
                     pokemon.sprites ??
@@ -96,14 +96,14 @@ const DashboardFlying: React.FC = () => {
                   </div>
                   <span>ADICIONAR</span>
                 </SubmitButton>
-              </li>
+              </div>
             ))}
           </PokemonList>
           <Cart />
         </Container>
       )}
       <Pagination pageNumbers={pageNumbers} onChangePage={handleChangePage} />
-    </>
+    </Screen>
   );
 };
 

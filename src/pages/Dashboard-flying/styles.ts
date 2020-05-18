@@ -1,20 +1,33 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
-export const Container = styled.div`
-  display: flex;
+export const Screen = styled.div`
   flex: 1;
+  max-width: 1800px;
   padding: 0 20px;
-  margin-top: 10px;
+  margin: 50px auto;
 `;
 
-export const PokemonList = styled.ul`
-  display: grid;
-  width: 70%;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-  list-style: none;
-  li {
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PokemonList = styled.div`
+  @media (max-width: 799px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 800px) {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    list-style: none;
+  }
+
+  div {
     display: flex;
     flex-direction: column;
     background: #fff;

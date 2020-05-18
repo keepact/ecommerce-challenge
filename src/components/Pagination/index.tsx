@@ -1,5 +1,5 @@
 import React from 'react';
-import { List } from './styles';
+import { Container } from './styles';
 
 interface Props {
   pageNumbers: number[];
@@ -12,15 +12,19 @@ const Pagination: React.FC<Props> = ({
 }: Props): JSX.Element => {
   const renderPageNumbers = pageNumbers.map(number => {
     return (
-      <li key={number} id={String(number)}>
+      <span key={number} id={String(number)}>
         <button type="button" onClick={() => onChangePage(number)}>
           {number}
         </button>
-      </li>
+      </span>
     );
   });
 
-  return <List id="page-numbers">{renderPageNumbers}</List>;
+  return (
+    <Container>
+      <div id="page-numbers">{renderPageNumbers}</div>
+    </Container>
+  );
 };
 
 export default Pagination;

@@ -5,6 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  width: 100%;
   margin: 50px 0;
 `;
 
@@ -12,6 +13,7 @@ export const TextInput = styled.input`
   background: red;
   height: 60px;
   flex: 1;
+  margin-right: 10px;
 `;
 
 export const Cart = styled.div`
@@ -24,7 +26,6 @@ export const Cart = styled.div`
   }
   div {
     text-align: right;
-    margin-right: 15px;
     padding-right: 10px;
     strong {
       display: block;

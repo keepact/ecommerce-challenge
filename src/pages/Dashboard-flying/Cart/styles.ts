@@ -3,6 +3,7 @@ import { darken } from 'polished';
 
 export const Container = styled.div`
   padding: 30px;
+  margin-left: 10px;
   background: #fff;
   border-radius: 4px;
   footer {
