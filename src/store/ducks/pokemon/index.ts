@@ -6,13 +6,14 @@ const INITIAL_STATE: PokemonState = {
   data: [],
   page: 1,
   perPage: 9,
-  pageNumbers: [],
+  lastPage: 0,
   error: false,
   loading: false,
 };
 
 type PokemonAction = {
   type: PokemonTypes;
+  page?: number;
   payload: Pokemon;
 };
 
@@ -27,13 +28,8 @@ export const reducer: Reducer<PokemonState, PokemonAction> = (
         break;
       }
       case PokemonTypes.GET_SUCCESS: {
-        for (
-          let i = 1;
-          i <= Math.ceil(draft.data.length / draft.perPage);
-          i += 1
-        ) {
-          draft.pageNumbers.push(i);
-        }
+        const lastPage = Math.round(draft.data.length / draft.perPage);
+        draft.lastPage = lastPage;
         draft.loading = false;
         break;
       }
@@ -42,10 +38,14 @@ export const reducer: Reducer<PokemonState, PokemonAction> = (
         draft.data.push(action.payload);
         break;
       }
+      case PokemonTypes.CHANGE_PAGE: {
+        draft.page = action.page ?? 1;
+        break;
+      }
       case PokemonTypes.GET_ERROR: {
+        draft.data = [];
         draft.loading = false;
         draft.error = true;
-        draft.data = [];
         break;
       }
       default:

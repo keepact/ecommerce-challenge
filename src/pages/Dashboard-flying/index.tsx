@@ -13,7 +13,7 @@ import Cart from './Cart';
 
 import loadingAnimation from '../../assets/animations/pokemon-loading.json';
 import Animation from '../../components/Animation';
-import Pagination from '../../components/Pagination';
+import PageActions from '../../components/Pagination';
 
 interface SumAmount {
   [key: string]: number;
@@ -31,7 +31,7 @@ const DashboardFlying: React.FC = () => {
     }, {}),
   );
 
-  const { data: pokemons, loading, pageNumbers, page, perPage } = useSelector(
+  const { data: pokemons, loading, page, perPage, lastPage } = useSelector(
     (state: ApplicationState) => state.pokemon,
   );
 
@@ -63,10 +63,11 @@ const DashboardFlying: React.FC = () => {
 
   const handleChangePage = (pageNumber: number): void => {
     const arrayPaginate = setPage({
-      page: pageNumber,
+      page: page + 1,
       perPage,
       array: pokemons,
     });
+    dispatch({ type: PokemonTypes.CHANGE_PAGE, page: pageNumber });
     setContext({ filter: arrayPaginate, setContext: () => arrayPaginate });
   };
 
@@ -102,7 +103,13 @@ const DashboardFlying: React.FC = () => {
           <Cart />
         </Container>
       )}
-      <Pagination pageNumbers={pageNumbers} onChangePage={handleChangePage} />
+      <PageActions
+        disableNext={lastPage === page}
+        disableBack={page < 2}
+        pageLabel={page}
+        refresh={handleChangePage}
+        currentPage={page}
+      />
     </Screen>
   );
 };

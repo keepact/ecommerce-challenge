@@ -1,29 +1,47 @@
 import React from 'react';
-import { Container } from './styles';
+import { PageActions } from './styles';
 
 interface Props {
-  pageNumbers: number[];
-  onChangePage: (number: number) => void;
+  disableBack: boolean;
+  disableNext: boolean;
+  pageLabel: number;
+  currentPage: number;
+  refresh: (number: number) => void;
 }
 
 const Pagination: React.FC<Props> = ({
-  pageNumbers,
-  onChangePage,
+  currentPage,
+  disableBack,
+  disableNext,
+  pageLabel,
+  refresh,
 }: Props): JSX.Element => {
-  const renderPageNumbers = pageNumbers.map(number => {
-    return (
-      <span key={number} id={String(number)}>
-        <button type="button" onClick={() => onChangePage(number)}>
-          {number}
-        </button>
-      </span>
-    );
-  });
+  const handleChange = (action: string) => {
+    const pageNumber = action === 'back' ? currentPage - 1 : currentPage + 1;
+    refresh(pageNumber);
+  };
 
   return (
-    <Container>
-      <div id="page-numbers">{renderPageNumbers}</div>
-    </Container>
+    <PageActions>
+      <button
+        type="button"
+        disabled={disableBack}
+        onClick={() => handleChange('back')}
+      >
+        Anterior
+      </button>
+      <span>
+        Página
+        {pageLabel}
+      </span>
+      <button
+        type="button"
+        disabled={disableNext}
+        onClick={() => handleChange('next')}
+      >
+        Próximo
+      </button>
+    </PageActions>
   );
 };
 

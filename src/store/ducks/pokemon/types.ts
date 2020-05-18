@@ -3,6 +3,7 @@ export enum PokemonTypes {
   GET_REQUEST = '@pokemon/GET_REQUEST',
   GET_SUCCESS = '@pokemon/GET_SUCCESS',
   GET_DETAILS_SUCCESS = '@pokemon/GET_DETAILS_SUCCESS',
+  CHANGE_PAGE = '@pokemon/CHANGE_PAGE',
   GET_ERROR = '@pokemon/GET_ERROR',
 }
 
@@ -18,8 +19,8 @@ export interface Pokemon {
 // State Type
 export interface PokemonState {
   readonly data: Pokemon[];
-  readonly pageNumbers: number[];
   readonly page: number;
+  readonly lastPage: number;
   readonly perPage: number;
   readonly loading: boolean;
   readonly error: boolean;
