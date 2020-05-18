@@ -7,7 +7,7 @@ import { AppContextProvider } from './context';
 import GlobalStyle from './styles/global';
 import Header from './components/Header';
 
-import store from './store';
+import { store } from './store';
 import Routes from './routes';
 
 const App: React.FC = () => (
