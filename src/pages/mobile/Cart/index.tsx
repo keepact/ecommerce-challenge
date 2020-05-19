@@ -33,6 +33,7 @@ import {
   Amount,
   Total,
   EmptyCart,
+  BackButton,
 } from './styles';
 
 const Cart: React.FC = () => {
@@ -85,6 +86,11 @@ const Cart: React.FC = () => {
 
   return (
     <Container>
+      <BackButton>
+        <button type="button" onClick={() => history.push('/')}>
+          Voltar
+        </button>
+      </BackButton>
       {finished && (
         <Modal
           animation={successAnimation}

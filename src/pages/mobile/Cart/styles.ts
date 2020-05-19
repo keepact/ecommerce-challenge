@@ -3,7 +3,7 @@ import { darken } from 'polished';
 
 export const Container = styled.div`
   flex: 1;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   margin-top: 20px;
 `;
 
@@ -90,6 +90,7 @@ export const Total = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  padding: 30px;
 
   span {
     font-size: 12px;
@@ -121,5 +122,19 @@ export const Total = styled.div`
       text-transform: uppercase;
       padding: 10px;
     }
+  }
+`;
+
+export const BackButton = styled.div`
+  button {
+    background: ${darken(0.03, '#7159c1')};
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    width: 100px;
+    font-weight: bold;
   }
 `;
