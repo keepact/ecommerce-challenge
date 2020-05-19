@@ -94,10 +94,10 @@ export const SubmitButton = styled.button.attrs({
     padding: 12px;
     background: rgba(0, 0, 0, 0.1);
     svg {
-      margin-right: 5px;
+      margin-bottom: 8px;
     }
   }
-  span {
+  > span {
     flex: 1;
     text-align: center;
     font-weight: bold;

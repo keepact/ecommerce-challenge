@@ -52,7 +52,7 @@ export const Wrapper = styled.div`
     padding: 0 14px;
   }
   span {
-    font-size: 14px;
+    font-size: 20px;
     color: black;
     font-weight: bold;
     margin-bottom: 10px;

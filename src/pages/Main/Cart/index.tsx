@@ -93,7 +93,7 @@ const Cart: React.FC = () => {
           <CartTitle>
             <h2>Minha Cesta</h2>
           </CartTitle>
-          <Scroll>
+          <Scroll opacity={finished}>
             <ProductTable>
               <thead>
                 <tr>
