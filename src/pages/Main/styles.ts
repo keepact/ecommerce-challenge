@@ -13,17 +13,25 @@ export const Container = styled.div`
 `;
 
 export const PokemonList = styled.div`
-  @media (max-width: 799px) {
+  @media (max-width: 699px) {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    flex-basis: 100%;
   }
 
-  @media (min-width: 800px) {
+  @media (min-width: 700px) {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
     list-style: none;
+  }
+
+  @media (max-width: 699px) {
+    div + div {
+      margin-top: 10px;
+    }
   }
 
   div {
@@ -32,6 +40,7 @@ export const PokemonList = styled.div`
     background: #fff;
     border-radius: 4px;
     padding: 20px;
+
     img {
       align-self: center;
       max-width: 250px;

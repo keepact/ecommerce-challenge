@@ -2,6 +2,7 @@ import React, { useContext, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Pokemon } from '../../store/ducks/pokemon/types';
+import CartModal from './Modal';
 
 import { ApplicationState } from '../../store';
 
@@ -44,6 +45,7 @@ const Header: React.FC = () => {
         </div>
         <MdShoppingBasket size={36} color="#000" />
       </Cart>
+      <CartModal />
     </Container>
   );
 };
