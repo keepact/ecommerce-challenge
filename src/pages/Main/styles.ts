@@ -47,6 +47,7 @@ export const PokemonList = styled.div`
     }
     > strong {
       font-size: 16px;
+      text-transform: capitalize;
       line-height: 20px;
       color: #333;
       margin-top: 5px;

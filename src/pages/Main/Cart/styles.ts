@@ -62,6 +62,7 @@ export const ProductTable = styled.table`
 
   strong {
     color: #333;
+    text-transform: capitalize;
     display: block;
   }
 
