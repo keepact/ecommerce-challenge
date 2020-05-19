@@ -96,7 +96,7 @@ const Cart: React.FC = () => {
             </thead>
             <tbody>
               {cart.map(product => (
-                <tr>
+                <tr key={product.id}>
                   <td>
                     <img src={product.sprites} alt={product.name} />
                   </td>
