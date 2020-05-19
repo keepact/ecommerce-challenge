@@ -46,12 +46,12 @@ const Cart: React.FC = () => {
   const total: string = useSelector((state: ApplicationState) =>
     formatPrice(calculateTotal(state.cart.data)),
   );
-  const cart: CartInterface[] = useSelector((state: ApplicationState) =>
+  const cart = useSelector((state: ApplicationState) =>
     calculateSubTotal(state.cart.data),
   );
   const cartSize: number = useMemo(() => cart.length, [cart]);
 
-  function increment(product: CartInterface) {
+  function increment(product: CartInterface): void {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
@@ -59,7 +59,7 @@ const Cart: React.FC = () => {
     });
   }
 
-  function decrement(product: CartInterface) {
+  function decrement(product: CartInterface): void {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
@@ -67,18 +67,15 @@ const Cart: React.FC = () => {
     });
   }
 
-  function handleFinished() {
-    const format = +total.replace('R$', '').replace(',00', '');
-
-    setBonus(calculateBonus(format));
+  function handleFinished(): void {
+    const transformPriceToNumber = +total.replace('R$', '').replace(',00', '');
+    setBonus(calculateBonus(transformPriceToNumber));
     setFinished(true);
   }
 
-  function handleReset() {
+  function handleReset(): void {
     setFinished(false);
-    dispatch({
-      type: CartTypes.RESET,
-    });
+    dispatch({ type: CartTypes.RESET });
     history.push('/');
     setContext({
       context: { ...context, visible: false },

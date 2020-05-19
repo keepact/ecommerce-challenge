@@ -35,7 +35,7 @@ const Cart: React.FC = () => {
   const total: string = useSelector((state: ApplicationState) =>
     formatPrice(calculateTotal(state.cart.data)),
   );
-  const cart: CartInterface[] = useSelector((state: ApplicationState) =>
+  const cart = useSelector((state: ApplicationState) =>
     calculateSubTotal(state.cart.data),
   );
   const cartSize: number = useMemo(() => cart.length, [cart]);

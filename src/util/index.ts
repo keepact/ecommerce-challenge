@@ -7,6 +7,10 @@ interface Pagination {
   array: Pokemon[];
 }
 
+interface SumAmount {
+  [key: string]: number;
+}
+
 export const { format: formatPrice } = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
@@ -31,6 +35,14 @@ export const calculateSubTotal = (array: Cart[]): Cart[] => {
     ...product,
     subtotal: formatPrice(product.price * product.amount),
   }));
+};
+
+export const calculateAmount = (array: Cart[]): SumAmount => {
+  return array.reduce((sumAmount: SumAmount, product: Cart) => {
+    sumAmount[product.id] = product.amount;
+
+    return sumAmount;
+  }, {});
 };
 
 export const setPage = ({ page, perPage, array }: Pagination): Pokemon[] => {

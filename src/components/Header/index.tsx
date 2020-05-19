@@ -1,22 +1,25 @@
-import React, { useContext, FormEvent } from 'react';
+import React, { useContext, useMemo, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Pokemon } from '../../store/ducks/pokemon/types';
 import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
-
-import { Container, Cart, TextInput } from './styles';
 import { AppContext } from '../../context';
 import { setPage } from '../../util';
 
-const Header: React.FC = () => {
-  const { setContext, context } = useContext(AppContext);
-  const { visible } = context;
+import { Container, Cart, TextInput } from './styles';
 
-  const cartSize = useSelector(
-    (state: ApplicationState) => state.cart.data.length,
-  );
+const Header: React.FC = () => {
+  const {
+    setContext,
+    context,
+    context: { visible },
+  } = useContext(AppContext);
+
+  const cart = useSelector((state: ApplicationState) => state.cart.data);
+  const cartSize: number = useMemo(() => cart.length, [cart]);
+
   const { data: pokemons, page, perPage } = useSelector(
     (state: ApplicationState) => state.pokemon,
   );

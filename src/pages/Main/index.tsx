@@ -2,24 +2,20 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
-import { formatPrice, setPage } from '../../util';
+import { formatPrice, setPage, calculateAmount } from '../../util';
 import { ApplicationState } from '../../store';
 import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';
 import { AppContext } from '../../context';
 
-import { Screen, Container, PokemonList, SubmitButton } from './styles';
-import Cart from './Cart';
-
 import loadingAnimation from '../../assets/animations/pokemon-loading.json';
 import Animation from '../../components/Animation';
 import PageActions from '../../components/Pagination';
+import Cart from './Cart';
 
-interface SumAmount {
-  [key: string]: number;
-}
+import { Screen, Container, PokemonList, SubmitButton } from './styles';
 
-const DashboardFlying: React.FC = () => {
+const Main: React.FC = () => {
   const {
     context,
     context: { filter },
@@ -28,11 +24,7 @@ const DashboardFlying: React.FC = () => {
   const dispatch = useDispatch();
 
   const amount = useSelector((state: ApplicationState) =>
-    state.cart.data.reduce((sumAmount: SumAmount, pokemon) => {
-      sumAmount[pokemon.id] = pokemon.amount;
-
-      return sumAmount;
-    }, {}),
+    calculateAmount(state.cart.data),
   );
 
   const { data: pokemons, loading, page, perPage, lastPage } = useSelector(
@@ -40,7 +32,7 @@ const DashboardFlying: React.FC = () => {
   );
 
   const loadPokemons = useCallback(
-    (data: Pokemon[]) => {
+    (data: Pokemon[]): void => {
       const arrayPaginate = setPage({ page, perPage, array: data });
       const state = { filter: arrayPaginate, visible: false };
       setContext({ context: state, setContext: () => state });
@@ -119,4 +111,4 @@ const DashboardFlying: React.FC = () => {
   );
 };
 
-export default DashboardFlying;
+export default Main;
