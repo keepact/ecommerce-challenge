@@ -7,6 +7,12 @@ export const Container = styled.div`
   margin-top: 20px;
 `;
 
+export const EmptyCart = styled.div`
+  h2 {
+    text-align: center;
+  }
+`;
+
 export const ProductList = styled.div`
   background: #fff;
   border-radius: 4px;
@@ -29,23 +35,25 @@ export const Product = styled.div`
     padding: 0 10px;
 
     p {
-      font-size: 16px;
+      font-size: 18px;
+      text-transform: capitalize;
+      margin-bottom: 5px;
     }
 
     span {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
       margin-top: auto;
     }
-
-    button {
-      align-items: center;
-      justify-content: center;
-    }
+  }
+  button {
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 export const Amount = styled.div`
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -70,9 +78,15 @@ export const Amount = styled.div`
     padding: 4px;
     margin: 0 5px;
   }
+
+  button {
+    border: none;
+  }
 `;
 
 export const Total = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
@@ -97,6 +111,7 @@ export const Total = styled.div`
     justify-content: center;
     color: #fff;
     width: 350px;
+    height: 40px;
     margin-top: 20px;
 
     span {

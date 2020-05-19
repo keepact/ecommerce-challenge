@@ -12,7 +12,7 @@ import {
   Cart as CartInterface,
   CartTypes,
 } from '../../../store/ducks/cart/types';
-import { Container, ProductTable, Total } from './styles';
+import { Container, ProductTable, Total, EmptyCart } from './styles';
 
 import emptyAnimation from '../../../assets/animations/empty-cart.json';
 import successAnimation from '../../../assets/animations/sending-success.json';
@@ -148,10 +148,10 @@ const Cart: React.FC = () => {
           </footer>
         </>
       ) : (
-        <div>
+        <EmptyCart>
           <Animation animation={emptyAnimation} autoplay loop />
           <h2>Seu carrinho está vazio.</h2>
-        </div>
+        </EmptyCart>
       )}
     </Container>
   );
