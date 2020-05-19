@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   padding: 0 20px 20px 20px;
   margin-top: 20px;
@@ -14,6 +18,8 @@ export const EmptyCart = styled.div`
 `;
 
 export const ProductList = styled.div`
+  max-width: 720px;
+  width: 100%;
   background: #fff;
   border-radius: 4px;
   padding: 10px;
@@ -126,6 +132,8 @@ export const Total = styled.div`
 `;
 
 export const BackButton = styled.div`
+  align-self: flex-start;
+
   button {
     background: ${darken(0.03, '#7159c1')};
     color: #fff;
@@ -136,5 +144,11 @@ export const BackButton = styled.div`
     margin-top: 0;
     width: 100px;
     font-weight: bold;
+  }
+`;
+
+export const CartTitle = styled.div`
+  h2 {
+    padding: 20px;
   }
 `;

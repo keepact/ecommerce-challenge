@@ -122,6 +122,7 @@ export const EmptyCart = styled.div`
 export const Scroll = styled(PerfectScrollbar)`
   border-top: 1px solid #dfdfdf;
   max-height: 650px;
+  height: auto;
   padding: 5px 15px;
   opacity: ${(props: ScrollProps) => (props.opacity ? 0.3 : 1)};
 `;

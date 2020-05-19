@@ -34,6 +34,7 @@ import {
   Total,
   EmptyCart,
   BackButton,
+  CartTitle,
 } from './styles';
 
 const Cart: React.FC = () => {
@@ -100,6 +101,9 @@ const Cart: React.FC = () => {
           onClick={handleReset}
         />
       )}
+      <CartTitle>
+        <h2>Minha Cesta</h2>
+      </CartTitle>
       {cartSize > 0 ? (
         <>
           <ProductList>

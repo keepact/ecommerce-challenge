@@ -105,10 +105,16 @@ export const SubmitButton = styled.button.attrs({
 `;
 
 export const EmptyContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+
   background-color: white;
   padding: 20px;
 
   p {
+    font-size: 20px;
     text-align: center;
     font-weight: bold;
   }

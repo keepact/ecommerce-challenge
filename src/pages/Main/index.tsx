@@ -84,42 +84,40 @@ const Main: React.FC = () => {
         <Animation animation={loadingAnimation} autoplay loop />
       ) : (
         <>
-          {pokemonArraySize > 0 ? (
-            <>
-              <Container>
-                <PokemonList>
-                  {filter.map(pokemon => (
-                    <div key={pokemon.id}>
-                      <img src={pokemon.sprites} alt={pokemon.name} />
-                      <strong>{pokemon.name}</strong>
-                      <span>{formatPrice(pokemon.price)}</span>
+          <Container>
+            {pokemonArraySize > 0 ? (
+              <PokemonList>
+                {filter.map(pokemon => (
+                  <div key={pokemon.id}>
+                    <img src={pokemon.sprites} alt={pokemon.name} />
+                    <strong>{pokemon.name}</strong>
+                    <span>{formatPrice(pokemon.price)}</span>
 
-                      <SubmitButton onClick={() => handleAddProduct(pokemon)}>
-                        <div>
-                          <MdShoppingCart size={16} color="#FFF" />
-                          {amount[pokemon.id] || 0}
-                        </div>
-                        <span>ADICIONAR</span>
-                      </SubmitButton>
-                    </div>
-                  ))}
-                </PokemonList>
-                <Cart />
-              </Container>
-              <PageActions
-                disableNext={lastPage === page}
-                disableBack={page < 2}
-                pageLabel={page}
-                refresh={handleChangePage}
-                currentPage={page}
-                lastPage={lastPage}
-              />
-            </>
-          ) : (
-            <EmptyContainer>
-              <p>Nenhum pokemon encontrado</p>
-            </EmptyContainer>
-          )}
+                    <SubmitButton onClick={() => handleAddProduct(pokemon)}>
+                      <div>
+                        <MdShoppingCart size={16} color="#FFF" />
+                        {amount[pokemon.id] || 0}
+                      </div>
+                      <span>ADICIONAR</span>
+                    </SubmitButton>
+                  </div>
+                ))}
+              </PokemonList>
+            ) : (
+              <EmptyContainer>
+                <p>Nenhum pokemon encontrado</p>
+              </EmptyContainer>
+            )}
+            <Cart />
+          </Container>
+          <PageActions
+            disableNext={lastPage === page}
+            disableBack={page < 2}
+            pageLabel={page}
+            refresh={handleChangePage}
+            currentPage={page}
+            lastPage={lastPage}
+          />
         </>
       )}
     </Screen>
