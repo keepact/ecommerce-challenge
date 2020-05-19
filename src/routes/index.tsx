@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Main from '../pages/Main';
-import Cart from '../pages/Main/Cart/mobile';
+import Cart from '../pages/mobile/Cart';
 
 const Routes: React.FC = () => (
   <Switch>

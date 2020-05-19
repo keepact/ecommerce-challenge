@@ -6,19 +6,19 @@ import {
   MdDelete,
 } from 'react-icons/md';
 
-import { formatPrice, calculateBonus } from '../../../../util';
-import { ApplicationState } from '../../../../store';
+import { formatPrice, calculateBonus } from '../../../util';
+import { ApplicationState } from '../../../store';
 import {
   Cart as CartInterface,
   CartTypes,
-} from '../../../../store/ducks/cart/types';
+} from '../../../store/ducks/cart/types';
 import { ProductList, Product, Container, Amount, Total } from './styles';
 
-import emptyAnimation from '../../../../assets/animations/empty-cart.json';
-import successAnimation from '../../../../assets/animations/sending-success.json';
-import Animation from '../../../../components/Animation';
+import emptyAnimation from '../../../assets/animations/empty-cart.json';
+import successAnimation from '../../../assets/animations/sending-success.json';
+import Animation from '../../../components/Animation';
 
-import Modal from '../../../../components/Modal';
+import Modal from '../../../components/Modal';
 
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
