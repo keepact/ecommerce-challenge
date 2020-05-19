@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { formatPrice } from '../../../util';
 
@@ -21,6 +21,7 @@ interface Props {
 
 const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
   const history = useHistory();
+  const location = useLocation();
 
   const total = useSelector((state: ApplicationState) =>
     formatPrice(
@@ -38,47 +39,55 @@ const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
   );
   const cartSize = useMemo(() => cart.length, [cart]);
 
+  const handleGoToCart = (): void => {
+    history.push('/cart');
+  };
+
   return (
-    <Container visible={visible}>
-      <CartBasket>
-        {cartSize === 0 ? (
-          <EmptyCart>
-            <h2>Seu cesta está vazia.</h2>
-          </EmptyCart>
-        ) : (
-          <>
-            <p>Minha cesta</p>
-            <Scroll>
-              {cart.map(product => (
-                <Content key={product.id}>
-                  <div>
-                    <img src={product.sprites} alt="pokemon" />
+    <>
+      {location.pathname !== '/cart' && (
+        <Container visible={visible}>
+          <CartBasket>
+            {cartSize === 0 ? (
+              <EmptyCart>
+                <h2>Seu cesta está vazia.</h2>
+              </EmptyCart>
+            ) : (
+              <>
+                <p>Minha cesta</p>
+                <Scroll>
+                  {cart.map(product => (
+                    <Content key={product.id}>
+                      <div>
+                        <img src={product.sprites} alt="pokemon" />
+                        <div>
+                          <span>{product.name}</span>
+                          <span className="qty">{`Quantidade: ${product.amount}`}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <strong>{product.subtotal}</strong>
+                      </div>
+                    </Content>
+                  ))}
+                </Scroll>
+                <footer>
+                  <Total>
                     <div>
-                      <span>{product.name}</span>
-                      <span className="qty">{`Quantidade: ${product.amount}`}</span>
+                      <span>TOTAL</span>
+                      <strong>{total}</strong>
                     </div>
-                  </div>
-                  <div>
-                    <strong>{product.subtotal}</strong>
-                  </div>
-                </Content>
-              ))}
-            </Scroll>
-            <footer>
-              <Total>
-                <div>
-                  <span>TOTAL</span>
-                  <strong>{total}</strong>
-                </div>
-                <button type="button" onClick={() => history.push('/cart')}>
-                  ver minha cesta
-                </button>
-              </Total>
-            </footer>
-          </>
-        )}
-      </CartBasket>
-    </Container>
+                    <button type="button" onClick={handleGoToCart}>
+                      ver minha cesta
+                    </button>
+                  </Total>
+                </footer>
+              </>
+            )}
+          </CartBasket>
+        </Container>
+      )}
+    </>
   );
 };
 export default HeaderModal;
