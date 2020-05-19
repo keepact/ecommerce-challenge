@@ -12,21 +12,19 @@ import { store, persistor } from './store';
 import Routes from './routes';
 
 const App: React.FC = () => (
-  <>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <AppContextProvider>
-          <BrowserRouter>
-            <Header />
-            <Routes />
-          </BrowserRouter>
-        </AppContextProvider>
-      </PersistGate>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <AppContextProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes />
+        </BrowserRouter>
+      </AppContextProvider>
+    </PersistGate>
 
-      <GlobalStyle />
-      <ToastContainer autoClose={3000} />
-    </Provider>
-  </>
+    <GlobalStyle />
+    <ToastContainer autoClose={3000} />
+  </Provider>
 );
 
 export default App;
