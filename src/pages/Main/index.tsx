@@ -84,7 +84,7 @@ const Main: React.FC = () => {
         <Animation animation={loadingAnimation} autoplay loop />
       ) : (
         <>
-          {pokemonArraySize ? (
+          {pokemonArraySize > 0 ? (
             <>
               <Container>
                 <PokemonList>
