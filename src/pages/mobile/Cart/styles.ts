@@ -111,7 +111,7 @@ export const Total = styled.div`
     align-items: center;
     justify-content: center;
     color: #fff;
-    width: 350px;
+    width: 250px;
     height: 40px;
     margin-top: 20px;
 

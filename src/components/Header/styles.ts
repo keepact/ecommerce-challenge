@@ -10,7 +10,10 @@ export const Container = styled.div`
 `;
 
 export const TextInput = styled.input`
-  background: red;
+  background: #7159c1;
+  color: white;
+  font-weight: bold;
+  box-shadow: 10px 10px 50px 1px rgba(0, 0, 0, 0.2);
   height: 60px;
   flex: 1;
   margin-right: 10px;
