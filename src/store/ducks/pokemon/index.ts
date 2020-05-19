@@ -4,6 +4,7 @@ import { PokemonTypes, PokemonState, Pokemon } from './types';
 
 const INITIAL_STATE: PokemonState = {
   data: [],
+  pokemonType: 'poison',
   page: 1,
   perPage: 9,
   lastPage: 0,
@@ -13,6 +14,7 @@ const INITIAL_STATE: PokemonState = {
 
 type PokemonAction = {
   type: PokemonTypes;
+  pokemonType?: string;
   page?: number;
   payload: Pokemon;
 };
@@ -30,6 +32,7 @@ export const reducer: Reducer<PokemonState, PokemonAction> = (
       case PokemonTypes.GET_SUCCESS: {
         const lastPage = Math.round(draft.data.length / draft.perPage);
         draft.lastPage = lastPage;
+        draft.pokemonType = action.pokemonType ?? 'poison';
         draft.loading = false;
         break;
       }

@@ -75,7 +75,7 @@ function* getPokemons({ payload }: PokemonAction) {
       yield all(
         data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
       );
-      yield put({ type: PokemonTypes.GET_SUCCESS });
+      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
     } else {
       yield put({ type: PokemonTypes.GET_SUCCESS });
     }

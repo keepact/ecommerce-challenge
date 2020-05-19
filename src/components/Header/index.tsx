@@ -1,4 +1,11 @@
-import React, { useContext, useMemo, FormEvent } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useMemo,
+  FormEvent,
+  useCallback,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
@@ -9,17 +16,22 @@ import { ApplicationState } from '../../store';
 import { AppContext } from '../../context';
 import { setPage } from '../../util/helpers';
 
-import PoisonLogo from '../../assets/images/poison-type.png';
+import poisonLogo from '../../assets/images/poison-type.png';
+import groundLogo from '../../assets/images/ground-type.png';
+import flyingLogo from '../../assets/images/flying-type.png';
+import ghostLogo from '../../assets/images/ghost-type.png';
+
 import { Container, CartHeader, Cart, TextInput } from './styles';
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const [logo, setLogo] = useState<string>(poisonLogo);
   const { setContext, context } = useContext(AppContext);
 
   const cart = useSelector((state: ApplicationState) => state.cart.data);
   const cartSize: number = useMemo(() => cart.length, [cart]);
 
-  const { data: pokemons, page, perPage } = useSelector(
+  const { data: pokemons, pokemonType, page, perPage } = useSelector(
     (state: ApplicationState) => state.pokemon,
   );
 
@@ -48,6 +60,27 @@ const Header: React.FC = () => {
     });
   };
 
+  const setPokemonLogo = useCallback((type: string) => {
+    switch (type) {
+      case 'poison':
+        return poisonLogo;
+      case 'flying':
+        return flyingLogo;
+      case 'ghost':
+        return ghostLogo;
+      case 'ground':
+        return groundLogo;
+      default:
+        return poisonLogo;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname === '/cart') {
+      setLogo(setPokemonLogo(pokemonType));
+    }
+  }, [setPokemonLogo, pokemonType, location.pathname]);
+
   return (
     <Container>
       {location.pathname !== '/cart' ? (
@@ -66,8 +99,8 @@ const Header: React.FC = () => {
         </>
       ) : (
         <CartHeader>
-          <img src={PoisonLogo} alt="poison" />
-          <h3>Pokemon Type</h3>
+          <img src={logo} alt={pokemonType} />
+          <h3>{pokemonType}</h3>
         </CartHeader>
       )}
     </Container>

@@ -56,5 +56,6 @@ export const CartHeader = styled.div`
   h3 {
     color: white;
     margin-right: 20px;
+    text-transform: uppercase;
   }
 `;
