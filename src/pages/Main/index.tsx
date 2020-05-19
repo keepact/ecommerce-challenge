@@ -50,7 +50,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     dispatch({
       type: PokemonTypes.GET_REQUEST,
-      payload: 'type/3',
+      payload: 'type/4',
     });
   }, [dispatch]);
 

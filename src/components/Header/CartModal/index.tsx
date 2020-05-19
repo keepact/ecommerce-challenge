@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Cart as CartInterface } from '../../../store/ducks/cart/types';
 import { ApplicationState } from '../../../store';
@@ -32,7 +32,6 @@ const CartModal: React.FC = (): JSX.Element => {
   } = useContext(AppContext);
 
   const history = useHistory();
-  const location = useLocation();
 
   const total: string = useSelector((state: ApplicationState) =>
     formatPrice(calculateTotal(state.cart.data)),
@@ -55,50 +54,46 @@ const CartModal: React.FC = (): JSX.Element => {
   });
 
   return (
-    <>
-      {location.pathname !== '/cart' && (
-        <Container ref={ref} visible={visible}>
-          <CartBasket>
-            {cartSize === 0 ? (
-              <EmptyCart>
-                <h2>Seu cesta está vazia.</h2>
-              </EmptyCart>
-            ) : (
-              <>
-                <p>Minha cesta</p>
-                <Scroll>
-                  {cart.map(product => (
-                    <Content key={product.id}>
-                      <div>
-                        <img src={product.sprites} alt="pokemon" />
-                        <div>
-                          <span>{product.name}</span>
-                          <span className="qty">{`Quantidade: ${product.amount}`}</span>
-                        </div>
-                      </div>
-                      <div>
-                        <strong>{product.subtotal}</strong>
-                      </div>
-                    </Content>
-                  ))}
-                </Scroll>
-                <footer>
-                  <Total>
+    <Container ref={ref} visible={visible}>
+      <CartBasket>
+        {cartSize === 0 ? (
+          <EmptyCart>
+            <h2>Seu cesta está vazia.</h2>
+          </EmptyCart>
+        ) : (
+          <>
+            <p>Minha cesta</p>
+            <Scroll>
+              {cart.map(product => (
+                <Content key={product.id}>
+                  <div>
+                    <img src={product.sprites} alt="pokemon" />
                     <div>
-                      <span>TOTAL</span>
-                      <strong>{total}</strong>
+                      <span>{product.name}</span>
+                      <span className="qty">{`Quantidade: ${product.amount}`}</span>
                     </div>
-                    <button type="button" onClick={handleGoToCart}>
-                      ver minha cesta
-                    </button>
-                  </Total>
-                </footer>
-              </>
-            )}
-          </CartBasket>
-        </Container>
-      )}
-    </>
+                  </div>
+                  <div>
+                    <strong>{product.subtotal}</strong>
+                  </div>
+                </Content>
+              ))}
+            </Scroll>
+            <footer>
+              <Total>
+                <div>
+                  <span>TOTAL</span>
+                  <strong>{total}</strong>
+                </div>
+                <button type="button" onClick={handleGoToCart}>
+                  ver minha cesta
+                </button>
+              </Total>
+            </footer>
+          </>
+        )}
+      </CartBasket>
+    </Container>
   );
 };
 export default CartModal;
