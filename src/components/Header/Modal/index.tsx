@@ -6,7 +6,11 @@ import { ApplicationState } from '../../../store';
 
 import { Container, Content, Total, CartBasket, Scroll } from './styles';
 
-const HeaderModal: React.FC = () => {
+interface Props {
+  visible: boolean;
+}
+
+const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
   const total = useSelector((state: ApplicationState) =>
     formatPrice(
       state.cart.data.reduce((sumTotal: number, pokemon) => {
@@ -24,9 +28,9 @@ const HeaderModal: React.FC = () => {
   const cartSize = useMemo(() => cart.length, [cart]);
 
   return (
-    <Container>
+    <Container visible={visible}>
       {cartSize > 0 ? (
-        <CartBasket visible>
+        <CartBasket>
           <p>Minha cesta</p>
           <Scroll>
             {cart.map(product => (
