@@ -17,6 +17,7 @@ export const TextInput = styled.input`
   height: 60px;
   flex: 1;
   margin-right: 10px;
+  padding-left: 20px;
 `;
 
 export const Cart = styled.div`

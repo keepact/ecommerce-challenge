@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useContext } from 'react';
+import React, { useMemo, useEffect, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
@@ -13,7 +13,13 @@ import Animation from '../../components/Animation';
 import PageActions from '../../components/Pagination';
 import Cart from './Cart';
 
-import { Screen, Container, PokemonList, SubmitButton } from './styles';
+import {
+  Screen,
+  Container,
+  PokemonList,
+  SubmitButton,
+  EmptyContainer,
+} from './styles';
 
 const Main: React.FC = () => {
   const {
@@ -22,6 +28,7 @@ const Main: React.FC = () => {
     setContext,
   } = useContext(AppContext);
   const dispatch = useDispatch();
+  const pokemonArraySize: number = useMemo(() => filter.length, [filter]);
 
   const amount = useSelector((state: ApplicationState) =>
     calculateAmount(state.cart.data),
@@ -77,34 +84,42 @@ const Main: React.FC = () => {
         <Animation animation={loadingAnimation} autoplay loop />
       ) : (
         <>
-          <Container>
-            <PokemonList>
-              {filter.map(pokemon => (
-                <div key={pokemon.id}>
-                  <img src={pokemon.sprites} alt={pokemon.name} />
-                  <strong>{pokemon.name}</strong>
-                  <span>{formatPrice(pokemon.price)}</span>
+          {pokemonArraySize ? (
+            <>
+              <Container>
+                <PokemonList>
+                  {filter.map(pokemon => (
+                    <div key={pokemon.id}>
+                      <img src={pokemon.sprites} alt={pokemon.name} />
+                      <strong>{pokemon.name}</strong>
+                      <span>{formatPrice(pokemon.price)}</span>
 
-                  <SubmitButton onClick={() => handleAddProduct(pokemon)}>
-                    <div>
-                      <MdShoppingCart size={16} color="#FFF" />
-                      {amount[pokemon.id] || 0}
+                      <SubmitButton onClick={() => handleAddProduct(pokemon)}>
+                        <div>
+                          <MdShoppingCart size={16} color="#FFF" />
+                          {amount[pokemon.id] || 0}
+                        </div>
+                        <span>ADICIONAR</span>
+                      </SubmitButton>
                     </div>
-                    <span>ADICIONAR</span>
-                  </SubmitButton>
-                </div>
-              ))}
-            </PokemonList>
-            <Cart />
-          </Container>
-          <PageActions
-            disableNext={lastPage === page}
-            disableBack={page < 2}
-            pageLabel={page}
-            refresh={handleChangePage}
-            currentPage={page}
-            lastPage={lastPage}
-          />
+                  ))}
+                </PokemonList>
+                <Cart />
+              </Container>
+              <PageActions
+                disableNext={lastPage === page}
+                disableBack={page < 2}
+                pageLabel={page}
+                refresh={handleChangePage}
+                currentPage={page}
+                lastPage={lastPage}
+              />
+            </>
+          ) : (
+            <EmptyContainer>
+              <p>Nenhum pokemon encontrado</p>
+            </EmptyContainer>
+          )}
         </>
       )}
     </Screen>

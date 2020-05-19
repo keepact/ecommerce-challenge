@@ -103,3 +103,13 @@ export const SubmitButton = styled.button.attrs({
     font-weight: bold;
   }
 `;
+
+export const EmptyContainer = styled.div`
+  background-color: white;
+  padding: 20px;
+
+  p {
+    text-align: center;
+    font-weight: bold;
+  }
+`;
