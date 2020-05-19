@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { darken } from 'polished';
 
 export const Container = styled.div`
@@ -102,8 +103,20 @@ export const Total = styled.div`
   }
 `;
 
+export const CartTitle = styled.div`
+  h2 {
+    padding: 20px;
+  }
+`;
+
 export const EmptyCart = styled.div`
   h2 {
     text-align: center;
   }
+`;
+
+export const Scroll = styled(PerfectScrollbar)`
+  border-top: 1px solid #dfdfdf;
+  max-height: 650px;
+  padding: 5px 15px;
 `;

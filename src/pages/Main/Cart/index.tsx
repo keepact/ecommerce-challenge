@@ -25,7 +25,14 @@ import successAnimation from '../../../assets/animations/sending-success.json';
 import Animation from '../../../components/Animation';
 import Modal from '../../../components/Modal';
 
-import { Container, ProductTable, Total, EmptyCart } from './styles';
+import {
+  Container,
+  ProductTable,
+  Total,
+  EmptyCart,
+  Scroll,
+  CartTitle,
+} from './styles';
 
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
@@ -83,57 +90,68 @@ const Cart: React.FC = () => {
       )}
       {cartSize > 0 ? (
         <>
-          <ProductTable>
-            <thead>
-              <tr>
-                <th className="display">none</th>
-                <th>PRODUTO</th>
-                <th>QTD</th>
-                <th>SUBTOTAL</th>
-                <th className="display">none</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map(product => (
-                <tr key={product.id}>
-                  <td>
-                    <img src={product.sprites} alt={product.name} />
-                  </td>
-                  <td>
-                    <strong>{product.name}</strong>
-                    <span>{formatPrice(product.price)}</span>
-                  </td>
-                  <td>
-                    <div>
-                      <button type="button" onClick={() => decrement(product)}>
-                        <MdRemoveCircleOutline size={20} color="#7159c1" />
-                      </button>
-                      <input type="number" readOnly value={product.amount} />
-                      <button type="button" onClick={() => increment(product)}>
-                        <MdAddCircleOutline size={20} color="#7159c1" />
-                      </button>
-                    </div>
-                  </td>
-                  <td>
-                    <strong>{product.subtotal}</strong>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        dispatch({
-                          type: CartTypes.REMOVE,
-                          id: product.id,
-                        })
-                      }
-                    >
-                      <MdDelete size={20} color="#7159c1" />
-                    </button>
-                  </td>
+          <CartTitle>
+            <h2>Minha Cesta</h2>
+          </CartTitle>
+          <Scroll>
+            <ProductTable>
+              <thead>
+                <tr>
+                  <th className="display">none</th>
+                  <th>PRODUTO</th>
+                  <th>QTD</th>
+                  <th>SUBTOTAL</th>
+                  <th className="display">none</th>
                 </tr>
-              ))}
-            </tbody>
-          </ProductTable>
+              </thead>
+              <tbody>
+                {cart.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <img src={product.sprites} alt={product.name} />
+                    </td>
+                    <td>
+                      <strong>{product.name}</strong>
+                      <span>{formatPrice(product.price)}</span>
+                    </td>
+                    <td>
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => decrement(product)}
+                        >
+                          <MdRemoveCircleOutline size={20} color="#7159c1" />
+                        </button>
+                        <input type="number" readOnly value={product.amount} />
+                        <button
+                          type="button"
+                          onClick={() => increment(product)}
+                        >
+                          <MdAddCircleOutline size={20} color="#7159c1" />
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <strong>{product.subtotal}</strong>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          dispatch({
+                            type: CartTypes.REMOVE,
+                            id: product.id,
+                          })
+                        }
+                      >
+                        <MdDelete size={20} color="#7159c1" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ProductTable>
+          </Scroll>
 
           <footer>
             <button type="button" onClick={() => handleFinhesed()}>
