@@ -69,6 +69,6 @@ export const Wrapper = styled.div`
     border-radius: 4px;
     color: #fff;
     background: #7159c1;
-    margin-top: 5px;
+    margin-top: 30px;
   }
 `;

@@ -83,8 +83,8 @@ const Cart: React.FC = () => {
       {finished && (
         <Modal
           animation={successAnimation}
-          title="OBRIGADO"
-          text={`Você ganhou de volta ${bonus} para gastas na loja`}
+          title="OBRIGADO!!"
+          text={`Você ganhou de volta ${bonus} para gastar na loja`}
           buttonLabel="Ok"
           onClick={handleReset}
         />
