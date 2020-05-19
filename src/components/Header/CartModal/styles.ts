@@ -19,7 +19,7 @@ export const Container = styled.div`
     height: 0;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-bottom: 20px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 20px solid rgb(251, 255, 250);
   }
 
   @media (min-width: 1280px) {
@@ -101,6 +101,7 @@ export const Total = styled.div`
 export const CartBasket = styled.div`
   position: absolute;
   width: 320px;
+  box-shadow: 10px 10px 50px 1px rgba(0, 0, 0, 0.2);
   left: calc(50% - 300px);
   top: calc(100% + 30px);
   background: #fff;
@@ -117,4 +118,9 @@ export const Scroll = styled(PerfectScrollbar)`
   border-top: 1px solid #dfdfdf;
   max-height: 260px;
   padding: 5px 15px;
+`;
+
+export const EmptyCart = styled.div`
+  height: 100px;
+  padding: 30px;
 `;

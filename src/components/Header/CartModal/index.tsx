@@ -6,7 +6,14 @@ import { formatPrice } from '../../../util';
 
 import { ApplicationState } from '../../../store';
 
-import { Container, Content, Total, CartBasket, Scroll } from './styles';
+import {
+  Container,
+  Content,
+  Total,
+  CartBasket,
+  Scroll,
+  EmptyCart,
+} from './styles';
 
 interface Props {
   visible: boolean;
@@ -33,42 +40,44 @@ const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
 
   return (
     <Container visible={visible}>
-      {cartSize > 0 ? (
-        <CartBasket>
-          <p>Minha cesta</p>
-          <Scroll>
-            {cart.map(product => (
-              <Content key={product.id}>
-                <div>
-                  <img src={product.sprites} alt="pokemon" />
+      <CartBasket>
+        {cartSize === 0 ? (
+          <EmptyCart>
+            <h2>Seu cesta está vazia.</h2>
+          </EmptyCart>
+        ) : (
+          <>
+            <p>Minha cesta</p>
+            <Scroll>
+              {cart.map(product => (
+                <Content key={product.id}>
                   <div>
-                    <span>{product.name}</span>
-                    <span className="qty">{`Quantidade: ${product.amount}`}</span>
+                    <img src={product.sprites} alt="pokemon" />
+                    <div>
+                      <span>{product.name}</span>
+                      <span className="qty">{`Quantidade: ${product.amount}`}</span>
+                    </div>
                   </div>
-                </div>
+                  <div>
+                    <strong>{product.subtotal}</strong>
+                  </div>
+                </Content>
+              ))}
+            </Scroll>
+            <footer>
+              <Total>
                 <div>
-                  <strong>{product.subtotal}</strong>
+                  <span>TOTAL</span>
+                  <strong>{total}</strong>
                 </div>
-              </Content>
-            ))}
-          </Scroll>
-          <footer>
-            <Total>
-              <div>
-                <span>TOTAL</span>
-                <strong>{total}</strong>
-              </div>
-              <button type="button" onClick={() => history.push('/cart')}>
-                ver minha cesta
-              </button>
-            </Total>
-          </footer>
-        </CartBasket>
-      ) : (
-        <div>
-          <h2>Seu carrinho está vazio.</h2>
-        </div>
-      )}
+                <button type="button" onClick={() => history.push('/cart')}>
+                  ver minha cesta
+                </button>
+              </Total>
+            </footer>
+          </>
+        )}
+      </CartBasket>
     </Container>
   );
 };
