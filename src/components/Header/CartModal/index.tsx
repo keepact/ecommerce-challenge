@@ -16,7 +16,7 @@ import {
 } from './styles';
 
 interface Props {
-  visible: boolean;
+  visible?: boolean;
 }
 
 const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {

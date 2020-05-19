@@ -10,14 +10,19 @@ type Props = {
   children: React.ReactNode;
 };
 
-type Context = {
+interface State {
   filter: Pokemon[];
+  visible: boolean;
+}
+
+type Context = {
+  context: State;
   setContext: Dispatch<SetStateAction<Context>>;
 };
 
 const initialContext: Context = {
-  filter: [],
-  setContext: (): Pokemon => {
+  context: { filter: [], visible: false },
+  setContext: (): void => {
     throw new Error('setContext function must be overridden');
   },
 };

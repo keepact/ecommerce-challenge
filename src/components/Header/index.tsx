@@ -1,4 +1,4 @@
-import React, { useState, useContext, FormEvent } from 'react';
+import React, { useContext, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Pokemon } from '../../store/ducks/pokemon/types';
@@ -11,8 +11,8 @@ import { AppContext } from '../../context';
 import { setPage } from '../../util';
 
 const Header: React.FC = () => {
-  const { setContext } = useContext(AppContext);
-  const [visible, setVisible] = useState<boolean>(false);
+  const { setContext, context } = useContext(AppContext);
+  const { visible } = context;
 
   const cartSize = useSelector(
     (state: ApplicationState) => state.cart.data.length,
@@ -22,7 +22,10 @@ const Header: React.FC = () => {
   );
 
   function handleToggleVisible() {
-    setVisible(!visible);
+    setContext({
+      context: { ...context, visible: !context.visible },
+      setContext: () => context,
+    });
   }
 
   const handleSearch = (event: FormEvent<HTMLInputElement>) => {
@@ -37,7 +40,10 @@ const Header: React.FC = () => {
     } else {
       newList = setPage({ page, perPage, array: pokemons });
     }
-    setContext({ filter: newList, setContext: () => newList });
+    setContext({
+      context: { ...context, filter: newList },
+      setContext: () => context,
+    });
   };
 
   return (

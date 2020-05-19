@@ -1,10 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
+import { AppContext } from '../../../context';
 
 import { formatPrice, calculateBonus } from '../../../util';
 import { ApplicationState } from '../../../store';
@@ -28,9 +30,12 @@ import Animation from '../../../components/Animation';
 import Modal from '../../../components/Modal';
 
 const Cart: React.FC = () => {
+  const { context, setContext } = useContext(AppContext);
   const [finished, setFinished] = useState<boolean>(false);
   const [bonus, setBonus] = useState<string>('');
+
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const total = useSelector((state: ApplicationState) =>
     formatPrice(
@@ -75,6 +80,11 @@ const Cart: React.FC = () => {
     setFinished(false);
     dispatch({
       type: CartTypes.RESET,
+    });
+    history.push('/');
+    setContext({
+      context: { ...context, visible: false },
+      setContext: () => context,
     });
   }
 

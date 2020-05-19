@@ -20,7 +20,8 @@ interface SumAmount {
 }
 
 const DashboardFlying: React.FC = () => {
-  const { filter, setContext } = useContext(AppContext);
+  const { context, setContext } = useContext(AppContext);
+  const { filter } = context;
   const dispatch = useDispatch();
 
   const amount = useSelector((state: ApplicationState) =>
@@ -38,7 +39,14 @@ const DashboardFlying: React.FC = () => {
   const loadPokemons = useCallback(
     (data: Pokemon[]) => {
       const arrayPaginate = setPage({ page, perPage, array: data });
-      setContext({ filter: arrayPaginate, setContext: () => arrayPaginate });
+      const contextFormat = {
+        filter: arrayPaginate,
+        visible: false,
+      };
+      setContext({
+        context: contextFormat,
+        setContext: () => contextFormat,
+      });
     },
     [setContext, page, perPage],
   );
@@ -68,7 +76,10 @@ const DashboardFlying: React.FC = () => {
       perPage,
       array: pokemons,
     });
-    setContext({ filter: arrayPaginate, setContext: () => arrayPaginate });
+    setContext({
+      context: { ...context, filter: arrayPaginate },
+      setContext: () => context,
+    });
   };
 
   return (
