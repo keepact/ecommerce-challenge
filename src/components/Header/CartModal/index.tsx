@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { formatPrice } from '../../../util';
 
 import { ApplicationState } from '../../../store';
@@ -11,6 +13,8 @@ interface Props {
 }
 
 const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
+  const history = useHistory();
+
   const total = useSelector((state: ApplicationState) =>
     formatPrice(
       state.cart.data.reduce((sumTotal: number, pokemon) => {
@@ -54,7 +58,9 @@ const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
                 <span>TOTAL</span>
                 <strong>{total}</strong>
               </div>
-              <button type="button">ver minha cesta</button>
+              <button type="button" onClick={() => history.push('/cart')}>
+                ver minha cesta
+              </button>
             </Total>
           </footer>
         </CartBasket>

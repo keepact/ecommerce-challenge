@@ -2,7 +2,7 @@ import React, { useState, useContext, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Pokemon } from '../../store/ducks/pokemon/types';
-import CartModal from './Modal';
+import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
 

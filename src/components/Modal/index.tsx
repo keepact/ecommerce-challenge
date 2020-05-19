@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Content, Wrapper } from './styles';
-import Animation from '../../../components/Animation';
+import Animation from '../Animation';
 
 interface Props {
   animation: object;

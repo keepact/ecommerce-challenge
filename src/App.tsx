@@ -16,8 +16,8 @@ const App: React.FC = () => (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <AppContextProvider>
-          <Header />
           <BrowserRouter>
+            <Header />
             <Routes />
           </BrowserRouter>
         </AppContextProvider>
