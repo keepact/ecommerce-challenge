@@ -2,9 +2,10 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { formatPrice } from '../../../util';
-
+import { Cart as CartInterface } from '../../../store/ducks/cart/types';
 import { ApplicationState } from '../../../store';
+
+import { formatPrice, calculateTotal, calculateSubTotal } from '../../../util';
 
 import {
   Container,
@@ -19,25 +20,17 @@ interface Props {
   visible?: boolean;
 }
 
-const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
+const CartModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
   const history = useHistory();
   const location = useLocation();
 
-  const total = useSelector((state: ApplicationState) =>
-    formatPrice(
-      state.cart.data.reduce((sumTotal: number, pokemon) => {
-        return sumTotal + pokemon.price * pokemon.amount;
-      }, 0),
-    ),
+  const total: string = useSelector((state: ApplicationState) =>
+    formatPrice(calculateTotal(state.cart.data)),
   );
-
-  const cart = useSelector((state: ApplicationState) =>
-    state.cart.data.map(pokemon => ({
-      ...pokemon,
-      subtotal: formatPrice(pokemon.price * pokemon.amount),
-    })),
+  const cart: CartInterface[] = useSelector((state: ApplicationState) =>
+    calculateSubTotal(state.cart.data),
   );
-  const cartSize = useMemo(() => cart.length, [cart]);
+  const cartSize: number = useMemo(() => cart.length, [cart]);
 
   const handleGoToCart = (): void => {
     history.push('/cart');
@@ -90,4 +83,4 @@ const HeaderModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
     </>
   );
 };
-export default HeaderModal;
+export default CartModal;

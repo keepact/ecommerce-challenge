@@ -15,6 +15,7 @@ export interface Cart {
   sprites: string;
   price: number;
   amount: number;
+  subtotal?: string;
 }
 
 // State Type

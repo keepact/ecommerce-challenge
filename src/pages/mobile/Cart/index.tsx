@@ -8,12 +8,24 @@ import {
 } from 'react-icons/md';
 import { AppContext } from '../../../context';
 
-import { formatPrice, calculateBonus } from '../../../util';
+import {
+  formatPrice,
+  calculateBonus,
+  calculateTotal,
+  calculateSubTotal,
+} from '../../../util';
+
 import { ApplicationState } from '../../../store';
 import {
   Cart as CartInterface,
   CartTypes,
 } from '../../../store/ducks/cart/types';
+
+import emptyAnimation from '../../../assets/animations/empty-cart.json';
+import successAnimation from '../../../assets/animations/sending-success.json';
+import Animation from '../../../components/Animation';
+import Modal from '../../../components/Modal';
+
 import {
   ProductList,
   Product,
@@ -23,12 +35,6 @@ import {
   EmptyCart,
 } from './styles';
 
-import emptyAnimation from '../../../assets/animations/empty-cart.json';
-import successAnimation from '../../../assets/animations/sending-success.json';
-import Animation from '../../../components/Animation';
-
-import Modal from '../../../components/Modal';
-
 const Cart: React.FC = () => {
   const { context, setContext } = useContext(AppContext);
   const [finished, setFinished] = useState<boolean>(false);
@@ -37,21 +43,13 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const total = useSelector((state: ApplicationState) =>
-    formatPrice(
-      state.cart.data.reduce((sumTotal: number, pokemon) => {
-        return sumTotal + pokemon.price * pokemon.amount;
-      }, 0),
-    ),
+  const total: string = useSelector((state: ApplicationState) =>
+    formatPrice(calculateTotal(state.cart.data)),
   );
-
-  const cart = useSelector((state: ApplicationState) =>
-    state.cart.data.map(pokemon => ({
-      ...pokemon,
-      subtotal: formatPrice(pokemon.price * pokemon.amount),
-    })),
+  const cart: CartInterface[] = useSelector((state: ApplicationState) =>
+    calculateSubTotal(state.cart.data),
   );
-  const cartSize = useMemo(() => cart.length, [cart]);
+  const cartSize: number = useMemo(() => cart.length, [cart]);
 
   function increment(product: CartInterface) {
     dispatch({

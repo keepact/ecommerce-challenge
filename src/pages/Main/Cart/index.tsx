@@ -1,47 +1,46 @@
 import React, { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
 
-import { formatPrice, calculateBonus } from '../../../util';
+import {
+  formatPrice,
+  calculateBonus,
+  calculateTotal,
+  calculateSubTotal,
+} from '../../../util';
+
 import { ApplicationState } from '../../../store';
 import {
   Cart as CartInterface,
   CartTypes,
 } from '../../../store/ducks/cart/types';
-import { Container, ProductTable, Total, EmptyCart } from './styles';
 
 import emptyAnimation from '../../../assets/animations/empty-cart.json';
 import successAnimation from '../../../assets/animations/sending-success.json';
 import Animation from '../../../components/Animation';
-
 import Modal from '../../../components/Modal';
+
+import { Container, ProductTable, Total, EmptyCart } from './styles';
 
 const Cart: React.FC = () => {
   const [finished, setFinished] = useState<boolean>(false);
   const [bonus, setBonus] = useState<string>('');
   const dispatch = useDispatch();
 
-  const total = useSelector((state: ApplicationState) =>
-    formatPrice(
-      state.cart.data.reduce((sumTotal: number, pokemon) => {
-        return sumTotal + pokemon.price * pokemon.amount;
-      }, 0),
-    ),
+  const total: string = useSelector((state: ApplicationState) =>
+    formatPrice(calculateTotal(state.cart.data)),
   );
-
-  const cart = useSelector((state: ApplicationState) =>
-    state.cart.data.map(pokemon => ({
-      ...pokemon,
-      subtotal: formatPrice(pokemon.price * pokemon.amount),
-    })),
+  const cart: CartInterface[] = useSelector((state: ApplicationState) =>
+    calculateSubTotal(state.cart.data),
   );
-  const cartSize = useMemo(() => cart.length, [cart]);
+  const cartSize: number = useMemo(() => cart.length, [cart]);
 
-  function increment(product: CartInterface) {
+  function increment(product: CartInterface): void {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
@@ -49,7 +48,7 @@ const Cart: React.FC = () => {
     });
   }
 
-  function decrement(product: CartInterface) {
+  function decrement(product: CartInterface): void {
     dispatch({
       type: CartTypes.UPDATE_AMOUNT_REQUEST,
       id: product.id,
@@ -57,14 +56,14 @@ const Cart: React.FC = () => {
     });
   }
 
-  function handleFinhesed() {
+  function handleFinhesed(): void {
     const format = +total.replace('R$', '').replace(',00', '');
 
     setBonus(calculateBonus(format));
     setFinished(true);
   }
 
-  function handleReset() {
+  function handleReset(): void {
     setFinished(false);
     dispatch({
       type: CartTypes.RESET,

@@ -1,4 +1,5 @@
 import { Pokemon } from '../store/ducks/pokemon/types';
+import { Cart } from '../store/ducks/cart/types';
 
 interface Pagination {
   page: number;
@@ -18,6 +19,19 @@ export const randomNumberMath = (min: number, max: number): number => {
 
 export const calculateBonus = (total: number): string =>
   formatPrice(total / 10);
+
+export const calculateTotal = (array: Cart[]): number => {
+  return array.reduce((sumTotal: number, product) => {
+    return sumTotal + product.price * product.amount;
+  }, 0);
+};
+
+export const calculateSubTotal = (array: Cart[]): Cart[] => {
+  return array.map(product => ({
+    ...product,
+    subtotal: formatPrice(product.price * product.amount),
+  }));
+};
 
 export const setPage = ({ page, perPage, array }: Pagination): Pokemon[] => {
   const indexOfLastItem = page * perPage;
