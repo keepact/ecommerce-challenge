@@ -43,7 +43,9 @@ function* getPokemonDetails(url: string) {
     const pokemon: Pokemon = {
       id: data.id,
       name: data.name,
-      sprites: data.sprites.front_default,
+      sprites:
+        data.sprites.front_default ??
+        'https://api.adorable.io/avatars/80/abott@adorable.png',
       price: randomNumberMath(12, 100),
       stock: randomNumberMath(1, 15),
     };

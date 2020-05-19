@@ -20,8 +20,11 @@ interface SumAmount {
 }
 
 const DashboardFlying: React.FC = () => {
-  const { context, setContext } = useContext(AppContext);
-  const { filter } = context;
+  const {
+    context,
+    context: { filter },
+    setContext,
+  } = useContext(AppContext);
   const dispatch = useDispatch();
 
   const amount = useSelector((state: ApplicationState) =>
@@ -39,14 +42,8 @@ const DashboardFlying: React.FC = () => {
   const loadPokemons = useCallback(
     (data: Pokemon[]) => {
       const arrayPaginate = setPage({ page, perPage, array: data });
-      const state = {
-        filter: arrayPaginate,
-        visible: false,
-      };
-      setContext({
-        context: state,
-        setContext: () => state,
-      });
+      const state = { filter: arrayPaginate, visible: false };
+      setContext({ context: state, setContext: () => state });
     },
     [setContext, page, perPage],
   );
@@ -92,13 +89,7 @@ const DashboardFlying: React.FC = () => {
             <PokemonList>
               {filter.map(pokemon => (
                 <div key={pokemon.id}>
-                  <img
-                    src={
-                      pokemon.sprites ??
-                      'https://api.adorable.io/avatars/50/abott@adorable.png'
-                    }
-                    alt={pokemon.name}
-                  />
+                  <img src={pokemon.sprites} alt={pokemon.name} />
                   <strong>{pokemon.name}</strong>
                   <span>{formatPrice(pokemon.price)}</span>
 
