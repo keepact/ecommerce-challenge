@@ -39,13 +39,13 @@ const DashboardFlying: React.FC = () => {
   const loadPokemons = useCallback(
     (data: Pokemon[]) => {
       const arrayPaginate = setPage({ page, perPage, array: data });
-      const contextFormat = {
+      const state = {
         filter: arrayPaginate,
         visible: false,
       };
       setContext({
-        context: contextFormat,
-        setContext: () => contextFormat,
+        context: state,
+        setContext: () => state,
       });
     },
     [setContext, page, perPage],
