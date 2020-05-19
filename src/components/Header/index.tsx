@@ -11,11 +11,7 @@ import { setPage } from '../../util';
 import { Container, Cart, TextInput } from './styles';
 
 const Header: React.FC = () => {
-  const {
-    setContext,
-    context,
-    context: { visible },
-  } = useContext(AppContext);
+  const { setContext, context } = useContext(AppContext);
 
   const cart = useSelector((state: ApplicationState) => state.cart.data);
   const cartSize: number = useMemo(() => cart.length, [cart]);
@@ -61,7 +57,7 @@ const Header: React.FC = () => {
           <MdShoppingBasket size={36} color="#000" />
         </button>
       </Cart>
-      <CartModal visible={visible} />
+      <CartModal />
     </Container>
   );
 };

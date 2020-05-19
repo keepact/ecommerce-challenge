@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useRef, useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -6,6 +6,8 @@ import { Cart as CartInterface } from '../../../store/ducks/cart/types';
 import { ApplicationState } from '../../../store';
 
 import { formatPrice, calculateTotal, calculateSubTotal } from '../../../util';
+import { useOutsideClick } from '../../../util/hooks';
+import { AppContext } from '../../../context';
 
 import {
   Container,
@@ -16,11 +18,15 @@ import {
   EmptyCart,
 } from './styles';
 
-interface Props {
-  visible?: boolean;
-}
+const CartModal: React.FC = (): JSX.Element => {
+  const ref = useRef<HTMLDivElement>(null);
 
-const CartModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
+  const {
+    setContext,
+    context,
+    context: { visible },
+  } = useContext(AppContext);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -36,10 +42,18 @@ const CartModal: React.FC<Props> = ({ visible }: Props): JSX.Element => {
     history.push('/cart');
   };
 
+  useOutsideClick(ref, () => {
+    if (visible)
+      setContext({
+        context: { ...context, visible: false },
+        setContext: () => context,
+      });
+  });
+
   return (
     <>
       {location.pathname !== '/cart' && (
-        <Container visible={visible}>
+        <Container ref={ref} visible={visible}>
           <CartBasket>
             {cartSize === 0 ? (
               <EmptyCart>
