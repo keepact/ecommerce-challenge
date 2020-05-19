@@ -5,7 +5,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Cart as CartInterface } from '../../../store/ducks/cart/types';
 import { ApplicationState } from '../../../store';
 
-import { formatPrice, calculateTotal, calculateSubTotal } from '../../../util';
+import {
+  formatPrice,
+  calculateTotal,
+  calculateSubTotal,
+} from '../../../util/helpers';
 import { useOutsideClick } from '../../../util/hooks';
 import { AppContext } from '../../../context';
 

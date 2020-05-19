@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import { PokemonTypes, Pokemon } from './types';
 import { ApplicationState } from '../..';
-import { randomNumberMath } from '../../../util';
+import { randomNumberMath } from '../../../util/helpers';
 import api from '../../../services/api';
 
 interface PokemonDetails {

@@ -6,7 +6,7 @@ import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
 import { AppContext } from '../../context';
-import { setPage } from '../../util';
+import { setPage } from '../../util/helpers';
 
 import { Container, Cart, TextInput } from './styles';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MdShoppingCart } from 'react-icons/md';
-import { formatPrice, setPage, calculateAmount } from '../../util';
+import { formatPrice, setPage, calculateAmount } from '../../util/helpers';
 import { ApplicationState } from '../../store';
 import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';

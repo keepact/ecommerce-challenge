@@ -1,5 +1,5 @@
-import { Pokemon } from '../store/ducks/pokemon/types';
-import { Cart } from '../store/ducks/cart/types';
+import { Pokemon } from '../../store/ducks/pokemon/types';
+import { Cart } from '../../store/ducks/cart/types';
 
 interface Pagination {
   page: number;

@@ -13,7 +13,7 @@ import {
   calculateBonus,
   calculateTotal,
   calculateSubTotal,
-} from '../../../util';
+} from '../../../util/helpers';
 
 import { ApplicationState } from '../../../store';
 import {
