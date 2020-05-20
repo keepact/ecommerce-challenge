@@ -76,8 +76,8 @@ export const Total = styled.div`
   align-items: baseline;
 
   button {
-    background: #7159c1;
-    color: #fff;
+    background: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.text};
     border: 0;
     border-radius: 4px;
     margin-top: 10px;
@@ -87,7 +87,7 @@ export const Total = styled.div`
     text-transform: uppercase;
     transition: background 0.2s;
     &:hover {
-      background: ${darken(0.03, '#7159c1')};
+      background: ${props => darken(0.03, props.theme.colors.primary)};
     }
   }
 

@@ -1,14 +1,8 @@
-import React, {
-  useEffect,
-  useState,
-  useContext,
-  useMemo,
-  FormEvent,
-  useCallback,
-} from 'react';
+import React, { useContext, useMemo, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
+import { ThemeContext } from 'styled-components';
 import { Pokemon } from '../../store/ducks/pokemon/types';
 import CartModal from './CartModal';
 
@@ -16,17 +10,16 @@ import { ApplicationState } from '../../store';
 import { AppContext } from '../../context';
 import { setPage } from '../../util/helpers';
 
-import poisonLogo from '../../assets/images/poison-type.png';
-import groundLogo from '../../assets/images/ground-type.png';
-import flyingLogo from '../../assets/images/flying-type.png';
-import ghostLogo from '../../assets/images/ghost-type.png';
+import { Container, CartHeader, Cart, TextInput, GroupButtons } from './styles';
 
-import { Container, CartHeader, Cart, TextInput } from './styles';
+interface Props {
+  changeStore(store: string): void;
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<Props> = ({ changeStore }) => {
   const location = useLocation();
-  const [logo, setLogo] = useState<string>(poisonLogo);
   const { setContext, context } = useContext(AppContext);
+  const { logo } = useContext(ThemeContext);
 
   const cart = useSelector((state: ApplicationState) => state.cart.data);
   const cartSize: number = useMemo(() => cart.length, [cart]);
@@ -60,50 +53,49 @@ const Header: React.FC = () => {
     });
   };
 
-  const setPokemonLogo = useCallback((type: string) => {
-    switch (type) {
-      case 'poison':
-        return poisonLogo;
-      case 'flying':
-        return flyingLogo;
-      case 'ghost':
-        return ghostLogo;
-      case 'ground':
-        return groundLogo;
-      default:
-        return poisonLogo;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname === '/cart') {
-      setLogo(setPokemonLogo(pokemonType));
-    }
-  }, [setPokemonLogo, pokemonType, location.pathname]);
-
   return (
-    <Container>
+    <>
       {location.pathname !== '/cart' ? (
         <>
-          <TextInput type="text" onChange={handleSearch} />
-          <Cart>
+          <Container>
+            <TextInput type="text" onChange={handleSearch} />
+            <Cart>
+              <div>
+                <strong>Meu carrinho</strong>
+                <span>{`${cartSize} itens`}</span>
+              </div>
+              <button type="button" onClick={handleToggleVisible}>
+                <MdShoppingBasket size={36} color="#000" />
+              </button>
+            </Cart>
+            <CartModal />
+          </Container>
+          <GroupButtons>
             <div>
-              <strong>Meu carrinho</strong>
-              <span>{`${cartSize} itens`}</span>
+              <button type="button" onClick={() => changeStore('flying')}>
+                Flying
+              </button>
+              <button type="button" onClick={() => changeStore('ground')}>
+                Ground
+              </button>
+              <button type="button" onClick={() => changeStore('ghost')}>
+                Ghost
+              </button>
+              <button type="button" onClick={() => changeStore('poison')}>
+                Poison
+              </button>
             </div>
-            <button type="button" onClick={handleToggleVisible}>
-              <MdShoppingBasket size={36} color="#000" />
-            </button>
-          </Cart>
-          <CartModal />
+          </GroupButtons>
         </>
       ) : (
-        <CartHeader>
-          <img src={logo} alt={pokemonType} />
-          <h3>{pokemonType}</h3>
-        </CartHeader>
+        <Container>
+          <CartHeader>
+            <img src={logo} alt={pokemonType} />
+            <h3>{pokemonType}</h3>
+          </CartHeader>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 export default Header;

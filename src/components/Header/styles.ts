@@ -6,12 +6,12 @@ export const Container = styled.div`
   align-items: center;
   padding: 0 20px;
   width: 100%;
-  margin: 50px 0;
+  margin: 20px 0;
 `;
 
 export const TextInput = styled.input`
-  background: #7159c1;
-  color: white;
+  background: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.text};
   font-weight: bold;
   box-shadow: 10px 10px 50px 1px rgba(0, 0, 0, 0.2);
   height: 60px;
@@ -41,7 +41,7 @@ export const Cart = styled.div`
 `;
 
 export const CartHeader = styled.div`
-  background-color: #7159c1;
+  background-color: ${props => props.theme.colors.primary};
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -54,8 +54,39 @@ export const CartHeader = styled.div`
   }
 
   h3 {
-    color: white;
+    color: ${props => props.theme.colors.text};
     margin-right: 20px;
     text-transform: uppercase;
+  }
+`;
+
+export const GroupButtons = styled.div`
+  div {
+    padding: 20px;
+    margin-left: 22px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      font-weight: bold;
+      padding: 10px 10px;
+      color: ${props => props.theme.colors.text};
+    }
+
+    button:first-child {
+      background-color: #b5610d;
+    }
+
+    button:nth-child(2) {
+      background-color: #230a33;
+    }
+
+    button:nth-child(3) {
+      background-color: #524e3c;
+    }
+
+    button:last-child {
+      background-color: #7159c1;
+    }
   }
 `;

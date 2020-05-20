@@ -113,16 +113,16 @@ export const Total = styled.div`
   }
 
   button {
-    background: ${darken(0.03, '#7159c1')};
+    background: ${props => darken(0.03, props.theme.colors.primary)};
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: ${props => props.theme.colors.text};
     width: 250px;
     height: 40px;
     margin-top: 20px;
 
     span {
-      color: #fff;
+      color: ${props => props.theme.colors.text};
       font-size: 14px;
       font-weight: bold;
       text-transform: uppercase;
@@ -135,8 +135,8 @@ export const BackButton = styled.div`
   align-self: flex-start;
 
   button {
-    background: ${darken(0.03, '#7159c1')};
-    color: #fff;
+    background: ${props => darken(0.03, props.theme.colors.primary)};
+    color: ${props => props.theme.colors.text};
     align-items: center;
     justify-content: center;
     height: 40px;

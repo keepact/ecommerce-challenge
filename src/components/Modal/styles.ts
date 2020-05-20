@@ -68,7 +68,7 @@ export const Wrapper = styled.div`
     min-height: 45px;
     border-radius: 4px;
     color: #fff;
-    background: #7159c1;
+    background: ${props => props.theme.colors.primary};
     margin-top: 30px;
   }
 `;

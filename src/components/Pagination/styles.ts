@@ -12,8 +12,8 @@ export const PageActions = styled.div`
     font-size: 18px;
   }
   .next-and-prev {
-    background: #7159c1;
-    color: #fff;
+    background: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.text};
     font-size: 16px;
     font-weight: bold;
     transition: opacity 0.25s ease-out;

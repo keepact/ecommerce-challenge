@@ -5,7 +5,7 @@ export const Screen = styled.div`
   flex: 1;
   max-width: 1800px;
   padding: 0 20px;
-  margin: 50px auto;
+  margin: 20px auto;
 `;
 
 export const Container = styled.div`
@@ -72,8 +72,8 @@ const rotate = keyframes`
 export const SubmitButton = styled.button.attrs({
   type: 'button',
 })`
-  background: #7159c1;
-  color: #fff;
+  background: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.text};
   border: 0;
   border-radius: 4px;
   overflow: hidden;
@@ -82,7 +82,7 @@ export const SubmitButton = styled.button.attrs({
   align-items: center;
   transition: background 0.2s;
   &:hover {
-    background: ${darken(0.03, '#7159c1')};
+    background: ${props => darken(0.03, props.theme.colors.primary)};
   }
   div[class='spinner'] {
     svg {

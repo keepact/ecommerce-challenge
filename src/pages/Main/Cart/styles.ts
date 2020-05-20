@@ -23,8 +23,8 @@ export const Container = styled.div`
     align-items: center;
 
     button {
-      background: #7159c1;
-      color: #fff;
+      background: ${props => props.theme.colors.primary};
+      color: ${props => props.theme.colors.text};
       border: 0;
       border-radius: 4px;
       padding: 12px 20px;
@@ -32,7 +32,7 @@ export const Container = styled.div`
       text-transform: uppercase;
       transition: background 0.2s;
       &:hover {
-        background: ${darken(0.03, '#7159c1')};
+        background: ${props => darken(0.03, props.theme.colors.primary)};
       }
     }
   }
