@@ -58,7 +58,7 @@ const CartModal: React.FC = (): JSX.Element => {
       <CartBasket>
         {cartSize === 0 ? (
           <EmptyCart>
-            <h2>Seu cesta está vazia.</h2>
+            <h2>Sua cesta está vazia.</h2>
           </EmptyCart>
         ) : (
           <>

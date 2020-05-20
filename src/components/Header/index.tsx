@@ -89,12 +89,9 @@ const Header: React.FC = () => {
           <Container>
             <TextInput type="text" onChange={handleSearch} />
             <Cart>
-              <div>
-                <strong>Meu carrinho</strong>
-                <span>{`${cartSize} itens`}</span>
-              </div>
               <button type="button" onClick={handleToggleVisible}>
                 <MdShoppingBasket size={36} color="#000" />
+                <span>{cartSize}</span>
               </button>
             </Cart>
             <CartModal />

@@ -28,15 +28,23 @@ export const Cart = styled.div`
   &:hover {
     opacity: 0.7;
   }
-  div {
-    text-align: right;
-    padding-right: 10px;
-    strong {
-      display: block;
-    }
-    span {
-      font-size: 12px;
-    }
+
+  button {
+    position: relative;
+  }
+
+  span {
+    background: ${props => props.theme.colors.primary};
+    border-radius: 10px;
+    color: #fff;
+    font-size: 11px;
+    position: absolute;
+    padding: 2px;
+    text-align: center;
+    right: -8;
+    top: -8;
+    min-height: 18px;
+    min-width: 18px;
   }
 `;
 
