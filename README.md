@@ -5,6 +5,7 @@ Project developed for the B2W challenge
 ## Technologies used
 
 - React
+- Redux
 - Typescript
 
 ## Application Preview
