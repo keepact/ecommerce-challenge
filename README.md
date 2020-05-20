@@ -16,10 +16,15 @@ Project developed for the B2W challenge
  
  ## Mobile Preview
 
- <p align="center">
-  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-home.png">
+<p align="center">
+  <span>
     <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-car.png">
- </p>
+   <span>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <span>
+    <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-home.png">
+   </span
+</p>
 
 ## Configuration
 
