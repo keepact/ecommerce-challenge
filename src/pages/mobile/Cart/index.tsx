@@ -6,7 +6,7 @@ import {
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
-import { AppContext } from '../../../context';
+import { AppContext } from '../../../context/filter';
 
 import {
   formatPrice,

@@ -7,7 +7,7 @@ import { Pokemon } from '../../store/ducks/pokemon/types';
 import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
-import { AppContext } from '../../context';
+import { AppContext } from '../../context/filter';
 import { StoreContext } from '../../context/store';
 
 import poison from '../../styles/themes/poison';

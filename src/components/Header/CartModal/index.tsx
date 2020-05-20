@@ -11,7 +11,7 @@ import {
   calculateSubTotal,
 } from '../../../util/helpers';
 import { useOutsideClick } from '../../../util/hooks';
-import { AppContext } from '../../../context';
+import { AppContext } from '../../../context/filter';
 
 import {
   Container,

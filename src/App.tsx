@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { AppContextProvider } from './context';
+import { AppContextProvider } from './context/filter';
 import { StoreContext } from './context/store';
 
 import GlobalStyle from './styles/global';
