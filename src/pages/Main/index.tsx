@@ -28,7 +28,7 @@ const Main: React.FC = () => {
     context: { filter },
     setContext,
   } = useContext(AppContext);
-  const { store } = useContext(StoreContext);
+  const { type } = useContext(StoreContext);
 
   const dispatch = useDispatch();
   const pokemonArraySize: number = useMemo(() => filter.length, [filter]);
@@ -55,9 +55,9 @@ const Main: React.FC = () => {
 
     dispatch({
       type: PokemonTypes.GET_REQUEST,
-      payload: path ?? store.type,
+      payload: path ?? type,
     });
-  }, [dispatch, store]);
+  }, [dispatch, type]);
 
   useEffect(() => {
     loadPokemons(pokemons);

@@ -10,18 +10,19 @@ import { ApplicationState } from '../../store';
 import { AppContext } from '../../context';
 import { StoreContext } from '../../context/store';
 
+import poison from '../../styles/themes/poison';
+import ground from '../../styles/themes/ground';
+import ghost from '../../styles/themes/ghost';
+import flying from '../../styles/themes/flying';
+
 import { setPage } from '../../util/helpers';
 
 import { Container, CartHeader, Cart, TextInput, GroupButtons } from './styles';
 
-interface Props {
-  changeStore(store: string): void;
-}
-
-const Header: React.FC<Props> = ({ changeStore }) => {
+const Header: React.FC = () => {
   const location = useLocation();
   const { context, setContext } = useContext(AppContext);
-  const { store, setStore } = useContext(StoreContext);
+  const { setTheme } = useContext(StoreContext);
 
   const { logo } = useContext(ThemeContext);
 
@@ -57,14 +58,28 @@ const Header: React.FC<Props> = ({ changeStore }) => {
     });
   };
 
+  const changeStore = (type: string) => {
+    switch (type) {
+      case 'poison':
+        return poison;
+      case 'flying':
+        return flying;
+      case 'ghost':
+        return ghost;
+      case 'ground':
+        return ground;
+      default:
+        return poison;
+    }
+  };
+
   const handleChangeStore = (name: string, type: string) => {
-    changeStore(name);
-    setTimeout(() => {
-      setStore({
-        store: { type },
-        setStore: () => store,
-      });
-    }, 100);
+    const choonsenStore = changeStore(name);
+    setTheme({
+      store: choonsenStore,
+      type,
+      setTheme: () => choonsenStore,
+    });
   };
 
   return (
