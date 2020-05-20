@@ -18,6 +18,10 @@ export const Container = styled.div`
     height: 100vh;
     transform: scale(2.5);
   }
+
+  @media (max-width: 549px) {
+    width: 300px;
+  }
 `;
 
 export const Content = styled.div`
@@ -70,5 +74,9 @@ export const Wrapper = styled.div`
     color: #fff;
     background: ${props => props.theme.colors.primary};
     margin-top: 30px;
+
+    @media (max-width: 549px) {
+      min-width: 250px;
+    }
   }
 `;

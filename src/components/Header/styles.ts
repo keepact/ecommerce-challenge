@@ -63,7 +63,6 @@ export const CartHeader = styled.div`
 export const GroupButtons = styled.div`
   div {
     padding: 20px;
-    margin-left: 22px;
     display: flex;
     justify-content: space-around;
 
