@@ -33,14 +33,14 @@ Project developed for the B2W challenge
 
     git clone https://github.com/keepact/ecommerce-challenge
 
-2 - Now, from the ``root`` folder run:
+1 - Now, from the ``root`` folder run:
 
     yarn
 
-5 - From that moment, all the project dependencies were downloaded and configuration set up, you can safely run:
+2 - From that moment, all the project dependencies were downloaded and configuration set up, you can safely run:
 
     yarn start
         
-6 - Now, with the frontend running, you can access the application at: 
+3 - Now, with the frontend running, you can access the application at: 
 
     http://localhost:3000
