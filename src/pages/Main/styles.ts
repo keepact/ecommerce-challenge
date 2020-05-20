@@ -36,6 +36,7 @@ export const PokemonList = styled.div`
 
   div {
     display: flex;
+    max-height: 300px;
     flex-direction: column;
     background: #fff;
     border-radius: 4px;
