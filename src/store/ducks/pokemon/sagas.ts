@@ -76,26 +76,17 @@ function* getPokemons({ payload }: PokemonAction) {
       (state: ApplicationState) => state.pokemon.data.length === 0,
     );
 
-    if (hasEmptyArrayOfPokemons) {
+    if (hasEmptyArrayOfPokemons || type !== data.name) {
+      if (type !== data.name) {
+        yield put({ type: PokemonTypes.RESET });
+        yield put({ type: CartTypes.RESET });
+      }
       yield all(
         data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
       );
-      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
     }
 
-    if (type !== data.name) {
-      yield put({ type: PokemonTypes.RESET });
-      yield put({ type: CartTypes.RESET });
-
-      yield all(
-        data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
-      );
-      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
-    }
-
-    if (type === data.name && !hasEmptyArrayOfPokemons) {
-      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: type });
-    }
+    yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
   } catch (err) {
     yield put({
       type: PokemonTypes.GET_ERROR,

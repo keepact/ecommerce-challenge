@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Screen = styled.div`
@@ -61,15 +61,6 @@ export const PokemonList = styled.div`
   }
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
 export const SubmitButton = styled.button.attrs({
   type: 'button',
 })`
@@ -85,11 +76,7 @@ export const SubmitButton = styled.button.attrs({
   &:hover {
     background: ${props => darken(0.03, props.theme.colors.primary)};
   }
-  div[class='spinner'] {
-    svg {
-      animation: ${rotate} 2s linear infinite;
-    }
-  }
+
   div {
     display: flex;
     align-items: center;

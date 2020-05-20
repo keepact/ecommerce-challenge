@@ -6,7 +6,7 @@ import { formatPrice, setPage, calculateAmount } from '../../util/helpers';
 import { ApplicationState } from '../../store';
 import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';
-import { AppContext } from '../../context/filter';
+import { FilterContext } from '../../context/filter';
 import { StoreContext } from '../../context/store';
 
 import loadingAnimation from '../../assets/animations/pokemon-loading.json';
@@ -27,7 +27,7 @@ const Main: React.FC = () => {
     context,
     context: { filter },
     setContext,
-  } = useContext(AppContext);
+  } = useContext(FilterContext);
   const { type } = useContext(StoreContext);
 
   const dispatch = useDispatch();

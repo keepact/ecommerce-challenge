@@ -12,7 +12,6 @@ interface Props {
   containerHeight?: string;
 }
 
-// animation, width, height, loop, autoplay
 const LottieControl: React.FC<Props> = ({
   animation,
   width = 300,

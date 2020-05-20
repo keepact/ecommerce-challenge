@@ -1,6 +1,11 @@
 import { Pokemon } from '../../store/ducks/pokemon/types';
 import { Cart } from '../../store/ducks/cart/types';
 
+import poison from '../../styles/themes/poison';
+import ground from '../../styles/themes/ground';
+import ghost from '../../styles/themes/ghost';
+import flying from '../../styles/themes/flying';
+
 interface Pagination {
   page: number;
   perPage: number;
@@ -51,4 +56,19 @@ export const setPage = ({ page, perPage, array }: Pagination): Pokemon[] => {
   const currentList = array.slice(indexOfFirstItem, indexOfLastItem);
 
   return currentList;
+};
+
+export const changeStore = (type: string) => {
+  switch (type) {
+    case 'poison':
+      return poison;
+    case 'flying':
+      return flying;
+    case 'ghost':
+      return ghost;
+    case 'ground':
+      return ground;
+    default:
+      return poison;
+  }
 };

@@ -7,21 +7,16 @@ import { Pokemon } from '../../store/ducks/pokemon/types';
 import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
-import { AppContext } from '../../context/filter';
+import { FilterContext } from '../../context/filter';
 import { StoreContext } from '../../context/store';
 
-import poison from '../../styles/themes/poison';
-import ground from '../../styles/themes/ground';
-import ghost from '../../styles/themes/ghost';
-import flying from '../../styles/themes/flying';
-
-import { setPage } from '../../util/helpers';
+import { setPage, changeStore } from '../../util/helpers';
 
 import { Container, CartHeader, Cart, TextInput, GroupButtons } from './styles';
 
 const Header: React.FC = () => {
   const location = useLocation();
-  const { context, setContext } = useContext(AppContext);
+  const { context, setContext } = useContext(FilterContext);
   const { setTheme } = useContext(StoreContext);
 
   const { logo } = useContext(ThemeContext);
@@ -43,7 +38,7 @@ const Header: React.FC = () => {
   const handleSearch = (event: FormEvent<HTMLInputElement>) => {
     let newList: Pokemon[];
 
-    if (event.currentTarget.value !== '') {
+    if (event.currentTarget.value) {
       newList = pokemons.filter(item => {
         const data = item.name.toLowerCase();
         const inputValue = event.currentTarget.value.toLowerCase();
@@ -58,27 +53,17 @@ const Header: React.FC = () => {
     });
   };
 
-  const changeStore = (type: string) => {
-    switch (type) {
-      case 'poison':
-        return poison;
-      case 'flying':
-        return flying;
-      case 'ghost':
-        return ghost;
-      case 'ground':
-        return ground;
-      default:
-        return poison;
-    }
-  };
-
-  const handleChangeStore = (name: string, type: string) => {
+  const handleChangeStore = (name: string) => {
     const choonsenStore = changeStore(name);
-    setTheme({
+    const theme = {
       store: choonsenStore,
-      type,
-      setTheme: () => choonsenStore,
+      type: choonsenStore.path,
+    };
+
+    setTheme({
+      store: theme.store,
+      type: theme.type,
+      setTheme: () => theme,
     });
   };
 
@@ -98,28 +83,16 @@ const Header: React.FC = () => {
           </Container>
           <GroupButtons>
             <div>
-              <button
-                type="button"
-                onClick={() => handleChangeStore('flying', 'type/3')}
-              >
+              <button type="button" onClick={() => handleChangeStore('flying')}>
                 Flying
               </button>
-              <button
-                type="button"
-                onClick={() => handleChangeStore('ground', 'type/5')}
-              >
+              <button type="button" onClick={() => handleChangeStore('ground')}>
                 Ground
               </button>
-              <button
-                type="button"
-                onClick={() => handleChangeStore('ghost', 'type/8')}
-              >
+              <button type="button" onClick={() => handleChangeStore('ghost')}>
                 Ghost
               </button>
-              <button
-                type="button"
-                onClick={() => handleChangeStore('poison', 'type/4')}
-              >
+              <button type="button" onClick={() => handleChangeStore('poison')}>
                 Poison
               </button>
             </div>

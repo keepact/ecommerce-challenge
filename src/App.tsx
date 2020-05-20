@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { AppContextProvider } from './context/filter';
+import { FilterContextProvider } from './context/filter';
 import { StoreContext } from './context/store';
 
 import GlobalStyle from './styles/global';
@@ -21,14 +21,14 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <AppContextProvider>
+        <FilterContextProvider>
           <ThemeProvider theme={storeTheme}>
             <BrowserRouter>
               <Header />
               <Routes />
             </BrowserRouter>
           </ThemeProvider>
-        </AppContextProvider>
+        </FilterContextProvider>
       </PersistGate>
       <GlobalStyle />
       <ToastContainer autoClose={3000} />

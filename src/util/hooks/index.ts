@@ -1,4 +1,5 @@
 import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { Store } from '../../context/store';
 
 type Response<T> = [T, Dispatch<SetStateAction<T>>];
 
@@ -23,7 +24,7 @@ export const useOutsideClick = (
 
 export const usePersistedState = <T>(
   key: string,
-  initialState: any,
+  initialState: Store,
 ): Response<T> => {
   const [state, setState] = useState(() => {
     const storageValue = localStorage.getItem(key);

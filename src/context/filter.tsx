@@ -26,16 +26,16 @@ const initialContext: Context = {
   },
 };
 
-const AppContext = createContext<Context>(initialContext);
+const FilterContext = createContext<Context>(initialContext);
 
-const AppContextProvider = ({ children }: Props): JSX.Element => {
+const FilterContextProvider = ({ children }: Props): JSX.Element => {
   const [contextState, setContext] = useState<Context>(initialContext);
 
   return (
-    <AppContext.Provider value={{ ...contextState, setContext }}>
+    <FilterContext.Provider value={{ ...contextState, setContext }}>
       {children}
-    </AppContext.Provider>
+    </FilterContext.Provider>
   );
 };
 
-export { AppContext, AppContextProvider };
+export { FilterContext, FilterContextProvider };

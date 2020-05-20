@@ -11,7 +11,7 @@ import {
   calculateSubTotal,
 } from '../../../util/helpers';
 import { useOutsideClick } from '../../../util/hooks';
-import { AppContext } from '../../../context/filter';
+import { FilterContext } from '../../../context/filter';
 
 import {
   Container,
@@ -29,7 +29,7 @@ const CartModal: React.FC = (): JSX.Element => {
     setContext,
     context,
     context: { visible },
-  } = useContext(AppContext);
+  } = useContext(FilterContext);
 
   const history = useHistory();
 

@@ -6,7 +6,7 @@ import {
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
-import { AppContext } from '../../../context/filter';
+import { FilterContext } from '../../../context/filter';
 
 import {
   formatPrice,
@@ -38,7 +38,7 @@ import {
 } from './styles';
 
 const Cart: React.FC = () => {
-  const { context, setContext } = useContext(AppContext);
+  const { context, setContext } = useContext(FilterContext);
   const [finished, setFinished] = useState<boolean>(false);
   const [bonus, setBonus] = useState<string>('');
 

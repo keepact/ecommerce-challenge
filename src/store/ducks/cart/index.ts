@@ -10,8 +10,8 @@ const INITIAL_STATE: CartState = {
 
 type CartAction = {
   type: CartTypes;
-  id: number;
-  amount: number;
+  id?: number;
+  amount?: number;
   payload: Cart;
 };
 
@@ -21,15 +21,17 @@ export const reducer: Reducer<CartState, CartAction> = (
 ) => {
   return produce<CartState>(state, (draft: Draft<CartState>) => {
     switch (action.type) {
-      case CartTypes.RESET: {
-        draft.data = [];
-        draft.loading = false;
-        draft.error = false;
-        break;
-      }
       case CartTypes.ADD_SUCCESS: {
         const { payload } = action;
         draft.data.push(payload);
+        break;
+      }
+      case CartTypes.UPDATE_AMOUNT_SUCCESS: {
+        const pokemonIndex = draft.data.findIndex(p => p.id === action.id);
+
+        if (pokemonIndex >= 0) {
+          draft.data[pokemonIndex].amount = Number(action.amount);
+        }
         break;
       }
       case CartTypes.REMOVE: {
@@ -39,12 +41,10 @@ export const reducer: Reducer<CartState, CartAction> = (
         }
         break;
       }
-      case CartTypes.UPDATE_AMOUNT_SUCCESS: {
-        const pokemonIndex = draft.data.findIndex(p => p.id === action.id);
-
-        if (pokemonIndex >= 0) {
-          draft.data[pokemonIndex].amount = Number(action.amount);
-        }
+      case CartTypes.RESET: {
+        draft.data = [];
+        draft.loading = false;
+        draft.error = false;
         break;
       }
       default:

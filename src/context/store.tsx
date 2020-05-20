@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-type Store = {
+export type Store = {
   store: DefaultTheme;
   type: string;
   setTheme: Dispatch<SetStateAction<Store>>;
