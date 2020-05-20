@@ -78,11 +78,11 @@ export const GroupButtons = styled.div`
     }
 
     button:nth-child(2) {
-      background-color: #230a33;
+      background-color: #524e3c;
     }
 
     button:nth-child(3) {
-      background-color: #524e3c;
+      background-color: #230a33;
     }
 
     button:last-child {

@@ -30,6 +30,10 @@ export const Product = styled.div`
   flex-direction: row;
   padding: 10px;
 
+  svg {
+    color: ${props => props.theme.colors.primary};
+  }
+
   img {
     width: 100px;
     height: 80px;
@@ -66,6 +70,10 @@ export const Amount = styled.div`
   background: #eee;
   padding: 10px;
   margin-top: 10px;
+
+  svg {
+    color: ${props => props.theme.colors.primary};
+  }
 
   div:first-child {
     flex-direction: row;

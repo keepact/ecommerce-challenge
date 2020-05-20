@@ -54,6 +54,10 @@ export const ProductTable = styled.table`
   tbody td {
     padding: 12px;
     border-bottom: 1px solid #eee;
+
+    svg {
+      color: ${props => props.theme.colors.primary};
+    }
   }
 
   img {

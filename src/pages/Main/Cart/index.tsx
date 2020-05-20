@@ -120,14 +120,14 @@ const Cart: React.FC = () => {
                           type="button"
                           onClick={() => decrement(product)}
                         >
-                          <MdRemoveCircleOutline size={20} color="#7159c1" />
+                          <MdRemoveCircleOutline size={20} />
                         </button>
                         <input type="number" readOnly value={product.amount} />
                         <button
                           type="button"
                           onClick={() => increment(product)}
                         >
-                          <MdAddCircleOutline size={20} color="#7159c1" />
+                          <MdAddCircleOutline size={20} />
                         </button>
                       </div>
                     </td>
@@ -144,7 +144,7 @@ const Cart: React.FC = () => {
                           })
                         }
                       >
-                        <MdDelete size={20} color="#7159c1" />
+                        <MdDelete size={20} />
                       </button>
                     </td>
                   </tr>
