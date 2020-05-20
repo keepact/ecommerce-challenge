@@ -51,6 +51,11 @@ export const reducer: Reducer<PokemonState, PokemonAction> = (
         draft.error = true;
         break;
       }
+      case PokemonTypes.RESET: {
+        draft.data = [];
+        draft.page = 1;
+        break;
+      }
       default:
         return state;
     }

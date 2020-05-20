@@ -10,13 +10,12 @@ type Props = {
   children: React.ReactNode;
 };
 
-interface State {
+interface ContextState {
   filter: Pokemon[];
   visible: boolean;
 }
-
 type Context = {
-  context: State;
+  context: ContextState;
   setContext: Dispatch<SetStateAction<Context>>;
 };
 

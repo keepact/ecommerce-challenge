@@ -7,6 +7,7 @@ import { ApplicationState } from '../../store';
 import { CartTypes } from '../../store/ducks/cart/types';
 import { PokemonTypes, Pokemon } from '../../store/ducks/pokemon/types';
 import { AppContext } from '../../context';
+import { StoreContext } from '../../context/store';
 
 import loadingAnimation from '../../assets/animations/pokemon-loading.json';
 import Animation from '../../components/Animation';
@@ -27,6 +28,8 @@ const Main: React.FC = () => {
     context: { filter },
     setContext,
   } = useContext(AppContext);
+  const { store } = useContext(StoreContext);
+
   const dispatch = useDispatch();
   const pokemonArraySize: number = useMemo(() => filter.length, [filter]);
 
@@ -48,11 +51,13 @@ const Main: React.FC = () => {
   );
 
   useEffect(() => {
+    const { path } = JSON.parse(localStorage.getItem('theme') || '{}');
+
     dispatch({
       type: PokemonTypes.GET_REQUEST,
-      payload: 'type/4',
+      payload: path ?? store.type,
     });
-  }, [dispatch]);
+  }, [dispatch, store]);
 
   useEffect(() => {
     loadPokemons(pokemons);

@@ -6,12 +6,14 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import { PersistGate } from 'redux-persist/integration/react';
 import { usePersistedState } from './util/hooks';
+
 import poison from './styles/themes/poison';
 import ground from './styles/themes/ground';
 import ghost from './styles/themes/ghost';
 import flying from './styles/themes/flying';
 
 import { AppContextProvider } from './context';
+import { StoreContextProvider } from './context/store';
 
 import GlobalStyle from './styles/global';
 import Header from './components/Header';
@@ -47,13 +49,14 @@ const App: React.FC = () => {
         <AppContextProvider>
           <ThemeProvider theme={theme}>
             <BrowserRouter>
-              <Header changeStore={changeStore} />
-              <Routes />
+              <StoreContextProvider>
+                <Header changeStore={changeStore} />
+                <Routes />
+              </StoreContextProvider>
             </BrowserRouter>
           </ThemeProvider>
         </AppContextProvider>
       </PersistGate>
-
       <GlobalStyle />
       <ToastContainer autoClose={3000} />
     </Provider>

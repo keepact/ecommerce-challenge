@@ -2,6 +2,7 @@ import ghostLogo from '../../assets/images/ghost-type.png';
 
 export default {
   title: 'ghost',
+  path: 'type/8',
   logo: ghostLogo,
 
   colors: {

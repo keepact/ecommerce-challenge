@@ -5,6 +5,7 @@ export enum PokemonTypes {
   GET_DETAILS_SUCCESS = '@pokemon/GET_DETAILS_SUCCESS',
   CHANGE_PAGE = '@pokemon/CHANGE_PAGE',
   GET_ERROR = '@pokemon/GET_ERROR',
+  RESET = '@pokemon/RESET',
 }
 
 // Data Types

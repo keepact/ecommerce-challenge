@@ -2,6 +2,8 @@ import { select, put, call, all, takeLatest } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import { PokemonTypes, Pokemon } from './types';
+import { CartTypes } from '../cart/types';
+
 import { ApplicationState } from '../..';
 import { randomNumberMath } from '../../../util/helpers';
 import api from '../../../services/api';
@@ -67,6 +69,9 @@ function* getPokemonDetails(url: string) {
 function* getPokemons({ payload }: PokemonAction) {
   try {
     const { data }: PokemonType = yield call(api.get, payload);
+    const type: string = yield select(
+      (state: ApplicationState) => state.pokemon.pokemonType,
+    );
     const hasEmptyArrayOfPokemons: boolean = yield select(
       (state: ApplicationState) => state.pokemon.data.length === 0,
     );
@@ -76,8 +81,20 @@ function* getPokemons({ payload }: PokemonAction) {
         data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
       );
       yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
-    } else {
-      yield put({ type: PokemonTypes.GET_SUCCESS });
+    }
+
+    if (type !== data.name) {
+      yield put({ type: PokemonTypes.RESET });
+      yield put({ type: CartTypes.RESET });
+
+      yield all(
+        data.pokemon.map(poke => call(getPokemonDetails, poke.pokemon.url)),
+      );
+      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: data.name });
+    }
+
+    if (type === data.name && !hasEmptyArrayOfPokemons) {
+      yield put({ type: PokemonTypes.GET_SUCCESS, pokemonType: type });
     }
   } catch (err) {
     yield put({

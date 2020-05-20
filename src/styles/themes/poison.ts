@@ -2,6 +2,7 @@ import poisonLogo from '../../assets/images/poison-type.png';
 
 export default {
   title: 'poison',
+  path: 'type/4',
   logo: poisonLogo,
 
   colors: {

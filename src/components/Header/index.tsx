@@ -8,6 +8,8 @@ import CartModal from './CartModal';
 
 import { ApplicationState } from '../../store';
 import { AppContext } from '../../context';
+import { StoreContext } from '../../context/store';
+
 import { setPage } from '../../util/helpers';
 
 import { Container, CartHeader, Cart, TextInput, GroupButtons } from './styles';
@@ -18,7 +20,9 @@ interface Props {
 
 const Header: React.FC<Props> = ({ changeStore }) => {
   const location = useLocation();
-  const { setContext, context } = useContext(AppContext);
+  const { context, setContext } = useContext(AppContext);
+  const { store, setStore } = useContext(StoreContext);
+
   const { logo } = useContext(ThemeContext);
 
   const cart = useSelector((state: ApplicationState) => state.cart.data);
@@ -53,6 +57,16 @@ const Header: React.FC<Props> = ({ changeStore }) => {
     });
   };
 
+  const handleChangeStore = (name: string, type: string) => {
+    changeStore(name);
+    setTimeout(() => {
+      setStore({
+        store: { type },
+        setStore: () => store,
+      });
+    }, 100);
+  };
+
   return (
     <>
       {location.pathname !== '/cart' ? (
@@ -72,16 +86,28 @@ const Header: React.FC<Props> = ({ changeStore }) => {
           </Container>
           <GroupButtons>
             <div>
-              <button type="button" onClick={() => changeStore('flying')}>
+              <button
+                type="button"
+                onClick={() => handleChangeStore('flying', 'type/3')}
+              >
                 Flying
               </button>
-              <button type="button" onClick={() => changeStore('ground')}>
+              <button
+                type="button"
+                onClick={() => handleChangeStore('ground', 'type/5')}
+              >
                 Ground
               </button>
-              <button type="button" onClick={() => changeStore('ghost')}>
+              <button
+                type="button"
+                onClick={() => handleChangeStore('ghost', 'type/8')}
+              >
                 Ghost
               </button>
-              <button type="button" onClick={() => changeStore('poison')}>
+              <button
+                type="button"
+                onClick={() => handleChangeStore('poison', 'type/4')}
+              >
                 Poison
               </button>
             </div>
