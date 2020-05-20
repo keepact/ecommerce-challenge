@@ -8,10 +8,17 @@ Project developed for the B2W challenge
 - Redux
 - Typescript
 
-## Application Preview
+## Desktop Preview
 
 <p align="center">
-  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/app-preview.png">
+  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/desktop-home.png">
+ </p>
+ 
+ ## Mobile Preview
+
+ <p align="center">
+  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-home.png">
+    <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-car.png">
  </p>
 
 ## Configuration
