@@ -20,7 +20,7 @@ Project developed for the B2W challenge
   <span>
     <img alt="GitHub B2W Challenge" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-cart-page.png" />
    </span>
-  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&</span>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
   <span>
     <img alt="GitHub B2W Challenge" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-home-page.png" />
    </span
