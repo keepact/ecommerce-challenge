@@ -9,6 +9,7 @@ export const Container = styled.div`
   bottom: 0;
   margin: auto;
   width: 450px;
+  z-index: 3;
   ::after {
     background: rgba(0, 0, 0, 0.7);
     position: absolute;

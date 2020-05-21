@@ -129,5 +129,4 @@ export const Scroll = styled(PerfectScrollbar)`
   max-height: 650px;
   height: auto;
   padding: 5px 15px;
-  opacity: ${(props: ScrollProps) => (props.opacity ? 0.3 : 1)};
 `;
