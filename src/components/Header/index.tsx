@@ -72,7 +72,11 @@ const Header: React.FC = () => {
       {location.pathname !== '/cart' ? (
         <>
           <Container>
-            <TextInput type="text" onChange={handleSearch} />
+            <TextInput
+              type="text"
+              placeholder="Pesquisar..."
+              onChange={handleSearch}
+            />
             <Cart>
               <button type="button" onClick={handleToggleVisible}>
                 <MdShoppingBasket size={36} color="#000" />

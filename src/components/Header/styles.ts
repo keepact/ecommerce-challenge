@@ -18,6 +18,10 @@ export const TextInput = styled.input`
   flex: 1;
   margin-right: 10px;
   padding-left: 20px;
+  ::placeholder {
+    color: ${props => props.theme.colors.text};
+    opacity: 1;
+  }
 `;
 
 export const Cart = styled.div`
