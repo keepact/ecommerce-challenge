@@ -8,11 +8,23 @@ Project developed for the B2W challenge
 - Redux
 - Typescript
 
-## Application Preview
+## Desktop Preview
 
 <p align="center">
-  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/app-preview.png">
+  <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/desktop-home.png">
  </p>
+ 
+ ## Mobile Preview
+
+<p align="center">
+  <span>
+    <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-car.png">
+   <span>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <span>
+    <img alt="GitHub language count" src="https://github.com/keepact/ecommerce-challenge/blob/master/src/assets/preview/mobile-home.png">
+   </span
+</p>
 
 ## Configuration
 
@@ -21,14 +33,14 @@ Project developed for the B2W challenge
 
     git clone https://github.com/keepact/ecommerce-challenge
 
-2 - Now, from the ``root`` folder run:
+1 - Now, from the ``root`` folder run:
 
     yarn
 
-5 - From that moment, all the project dependencies were downloaded and configuration set up, you can safely run:
+2 - From that moment, all the project dependencies were downloaded and configuration set up, you can safely run:
 
     yarn start
         
-6 - Now, with the frontend running, you can access the application at: 
+3 - Now, with the frontend running, you can access the application at: 
 
     http://localhost:3000
