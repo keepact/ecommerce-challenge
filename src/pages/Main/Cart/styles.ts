@@ -2,10 +2,6 @@ import styled from 'styled-components';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { darken } from 'polished';
 
-interface ScrollProps {
-  opacity: boolean;
-}
-
 export const Container = styled.div`
   @media (max-width: 1279px) {
     display: none;
